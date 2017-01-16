@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingFeedbackEditDlg" widgetVar="TrainingFeedbackEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTrainingFeedbackTitle}">
+            <h:form id="TrainingFeedbackEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingFeedbackController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_training}" for="training" />
+                        <p:selectOneMenu id="training" value="#{trainingFeedbackController.selected.training}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{trainingController.itemsAvailableSelectOne}"
+                                           var="trainingItem"
+                                           itemValue="#{trainingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_subject_matters_adequate}" for="subject_matters_adequate" />
+                        <p:inputText id="subject_matters_adequate" value="#{trainingFeedbackController.selected.subject_matters_adequate}" title="#{bundle.EditTrainingFeedbackTitle_subject_matters_adequate}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_duration_adequate}" for="duration_adequate" />
+                        <p:inputText id="duration_adequate" value="#{trainingFeedbackController.selected.duration_adequate}" title="#{bundle.EditTrainingFeedbackTitle_duration_adequate}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_practicality}" for="practicality" />
+                        <p:inputText id="practicality" value="#{trainingFeedbackController.selected.practicality}" title="#{bundle.EditTrainingFeedbackTitle_practicality}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_usefullness}" for="usefullness" />
+                        <p:inputText id="usefullness" value="#{trainingFeedbackController.selected.usefullness}" title="#{bundle.EditTrainingFeedbackTitle_usefullness}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_practicle_and_theory_concurancy}" for="practicle_and_theory_concurancy" />
+                        <p:inputText id="practicle_and_theory_concurancy" value="#{trainingFeedbackController.selected.practicle_and_theory_concurancy}" title="#{bundle.EditTrainingFeedbackTitle_practicle_and_theory_concurancy}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_lecture_halls}" for="lecture_halls" />
+                        <p:inputText id="lecture_halls" value="#{trainingFeedbackController.selected.lecture_halls}" title="#{bundle.EditTrainingFeedbackTitle_lecture_halls}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_staff_coperation}" for="staff_coperation" />
+                        <p:inputText id="staff_coperation" value="#{trainingFeedbackController.selected.staff_coperation}" title="#{bundle.EditTrainingFeedbackTitle_staff_coperation}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_meals}" for="meals" />
+                        <p:inputText id="meals" value="#{trainingFeedbackController.selected.meals}" title="#{bundle.EditTrainingFeedbackTitle_meals}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_toilets}" for="toilets" />
+                        <p:inputText id="toilets" value="#{trainingFeedbackController.selected.toilets}" title="#{bundle.EditTrainingFeedbackTitle_toilets}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1}" for="trainer1" />
+                        <p:selectOneMenu id="trainer1" value="#{trainingFeedbackController.selected.trainer1}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="trainer1Item"
+                                           itemValue="#{trainer1Item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1Presentation}" for="trainer1Presentation" />
+                        <p:inputText id="trainer1Presentation" value="#{trainingFeedbackController.selected.trainer1Presentation}" title="#{bundle.EditTrainingFeedbackTitle_trainer1Presentation}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1TimeManagement}" for="trainer1TimeManagement" />
+                        <p:inputText id="trainer1TimeManagement" value="#{trainingFeedbackController.selected.trainer1TimeManagement}" title="#{bundle.EditTrainingFeedbackTitle_trainer1TimeManagement}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1SubjectAdequacy}" for="trainer1SubjectAdequacy" />
+                        <p:inputText id="trainer1SubjectAdequacy" value="#{trainingFeedbackController.selected.trainer1SubjectAdequacy}" title="#{bundle.EditTrainingFeedbackTitle_trainer1SubjectAdequacy}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1relavanceToTopic}" for="trainer1relavanceToTopic" />
+                        <p:inputText id="trainer1relavanceToTopic" value="#{trainingFeedbackController.selected.trainer1relavanceToTopic}" title="#{bundle.EditTrainingFeedbackTitle_trainer1relavanceToTopic}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1Practicles}" for="trainer1Practicles" />
+                        <p:inputText id="trainer1Practicles" value="#{trainingFeedbackController.selected.trainer1Practicles}" title="#{bundle.EditTrainingFeedbackTitle_trainer1Practicles}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer1Lecturing}" for="trainer1Lecturing" />
+                        <p:inputText id="trainer1Lecturing" value="#{trainingFeedbackController.selected.trainer1Lecturing}" title="#{bundle.EditTrainingFeedbackTitle_trainer1Lecturing}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2}" for="trainer2" />
+                        <p:selectOneMenu id="trainer2" value="#{trainingFeedbackController.selected.trainer2}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="trainer2Item"
+                                           itemValue="#{trainer2Item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2Presentation}" for="trainer2Presentation" />
+                        <p:inputText id="trainer2Presentation" value="#{trainingFeedbackController.selected.trainer2Presentation}" title="#{bundle.EditTrainingFeedbackTitle_trainer2Presentation}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2TimeManagement}" for="trainer2TimeManagement" />
+                        <p:inputText id="trainer2TimeManagement" value="#{trainingFeedbackController.selected.trainer2TimeManagement}" title="#{bundle.EditTrainingFeedbackTitle_trainer2TimeManagement}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2SubjectAdequacy}" for="trainer2SubjectAdequacy" />
+                        <p:inputText id="trainer2SubjectAdequacy" value="#{trainingFeedbackController.selected.trainer2SubjectAdequacy}" title="#{bundle.EditTrainingFeedbackTitle_trainer2SubjectAdequacy}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2relavanceToTopic}" for="trainer2relavanceToTopic" />
+                        <p:inputText id="trainer2relavanceToTopic" value="#{trainingFeedbackController.selected.trainer2relavanceToTopic}" title="#{bundle.EditTrainingFeedbackTitle_trainer2relavanceToTopic}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2Practicles}" for="trainer2Practicles" />
+                        <p:inputText id="trainer2Practicles" value="#{trainingFeedbackController.selected.trainer2Practicles}" title="#{bundle.EditTrainingFeedbackTitle_trainer2Practicles}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer2Lecturing}" for="trainer2Lecturing" />
+                        <p:inputText id="trainer2Lecturing" value="#{trainingFeedbackController.selected.trainer2Lecturing}" title="#{bundle.EditTrainingFeedbackTitle_trainer2Lecturing}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3}" for="trainer3" />
+                        <p:selectOneMenu id="trainer3" value="#{trainingFeedbackController.selected.trainer3}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="trainer3Item"
+                                           itemValue="#{trainer3Item}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3Presentation}" for="trainer3Presentation" />
+                        <p:inputText id="trainer3Presentation" value="#{trainingFeedbackController.selected.trainer3Presentation}" title="#{bundle.EditTrainingFeedbackTitle_trainer3Presentation}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3TimeManagement}" for="trainer3TimeManagement" />
+                        <p:inputText id="trainer3TimeManagement" value="#{trainingFeedbackController.selected.trainer3TimeManagement}" title="#{bundle.EditTrainingFeedbackTitle_trainer3TimeManagement}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3SubjectAdequacy}" for="trainer3SubjectAdequacy" />
+                        <p:inputText id="trainer3SubjectAdequacy" value="#{trainingFeedbackController.selected.trainer3SubjectAdequacy}" title="#{bundle.EditTrainingFeedbackTitle_trainer3SubjectAdequacy}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3relavanceToTopic}" for="trainer3relavanceToTopic" />
+                        <p:inputText id="trainer3relavanceToTopic" value="#{trainingFeedbackController.selected.trainer3relavanceToTopic}" title="#{bundle.EditTrainingFeedbackTitle_trainer3relavanceToTopic}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3Practicles}" for="trainer3Practicles" />
+                        <p:inputText id="trainer3Practicles" value="#{trainingFeedbackController.selected.trainer3Practicles}" title="#{bundle.EditTrainingFeedbackTitle_trainer3Practicles}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_trainer3Lecturing}" for="trainer3Lecturing" />
+                        <p:inputText id="trainer3Lecturing" value="#{trainingFeedbackController.selected.trainer3Lecturing}" title="#{bundle.EditTrainingFeedbackTitle_trainer3Lecturing}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_comments}" for="comments" />
+                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{trainingFeedbackController.selected.comments}" title="#{bundle.EditTrainingFeedbackTitle_comments}" />
+                        <p:outputLabel value="#{bundle.EditTrainingFeedbackLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{trainingFeedbackController.selected.id}" title="#{bundle.EditTrainingFeedbackTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trainingFeedbackController.update}" value="#{bundle.Save}" update="display,:TrainingFeedbackListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingFeedbackEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TrainingFeedbackEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

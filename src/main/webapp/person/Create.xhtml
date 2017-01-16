@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonCreateDlg" widgetVar="PersonCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonTitle}">
+            <h:form id="PersonCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{personController.selected.name}" title="#{bundle.CreatePersonTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_nic}" for="nic" />
+                        <p:inputText id="nic" value="#{personController.selected.nic}" title="#{bundle.CreatePersonTitle_nic}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_institute}" for="institute" />
+                        <p:selectOneMenu id="institute" value="#{personController.selected.institute}" >
+                            <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                           var="instituteItem"
+                                           itemValue="#{instituteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_department}" for="department" />
+                        <p:selectOneMenu id="department" value="#{personController.selected.department}" >
+                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
+                                           var="departmentItem"
+                                           itemValue="#{departmentItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{personController.selected.phone}" title="#{bundle.CreatePersonTitle_phone}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{personController.selected.email}" title="#{bundle.CreatePersonTitle_email}" />
+                        <p:outputLabel value="#{bundle.CreatePersonLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{personController.selected.id}" title="#{bundle.CreatePersonTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

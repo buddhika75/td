@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTrainingFeedbackTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TrainingFeedbackListForm">
+                <p:panel header="#{bundle.ListTrainingFeedbackTitle}">
+                    <p:dataTable id="datalist" value="#{trainingFeedbackController.items}" var="item"
+                                 selectionMode="single" selection="#{trainingFeedbackController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_training}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.training}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_subject_matters_adequate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.subject_matters_adequate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_duration_adequate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.duration_adequate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_practicality}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.practicality}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_usefullness}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usefullness}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_practicle_and_theory_concurancy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.practicle_and_theory_concurancy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_lecture_halls}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lecture_halls}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_staff_coperation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.staff_coperation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_meals}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.meals}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_toilets}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.toilets}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1Presentation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1Presentation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1TimeManagement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1TimeManagement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1SubjectAdequacy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1SubjectAdequacy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1relavanceToTopic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1relavanceToTopic}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1Practicles}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1Practicles}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer1Lecturing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer1Lecturing}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2Presentation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2Presentation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2TimeManagement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2TimeManagement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2SubjectAdequacy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2SubjectAdequacy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2relavanceToTopic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2relavanceToTopic}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2Practicles}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2Practicles}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer2Lecturing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer2Lecturing}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3Presentation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3Presentation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3TimeManagement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3TimeManagement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3SubjectAdequacy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3SubjectAdequacy}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3relavanceToTopic}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3relavanceToTopic}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3Practicles}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3Practicles}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_trainer3Lecturing}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.trainer3Lecturing}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_comments}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.comments}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTrainingFeedbackTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{trainingFeedbackController.prepareCreate}" update=":TrainingFeedbackCreateForm" oncomplete="PF('TrainingFeedbackCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TrainingFeedbackViewForm" oncomplete="PF('TrainingFeedbackViewDialog').show()" disabled="#{empty trainingFeedbackController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TrainingFeedbackEditForm" oncomplete="PF('TrainingFeedbackEditDialog').show()" disabled="#{empty trainingFeedbackController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{trainingFeedbackController.destroy}" update=":growl,datalist" disabled="#{empty trainingFeedbackController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

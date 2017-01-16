@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingFeedbackViewDlg" widgetVar="TrainingFeedbackViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTrainingFeedbackTitle}">
+            <h:form id="TrainingFeedbackViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingFeedbackController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_training}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.training}" title="#{bundle.ViewTrainingFeedbackTitle_training}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_subject_matters_adequate}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.subject_matters_adequate}" title="#{bundle.ViewTrainingFeedbackTitle_subject_matters_adequate}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_duration_adequate}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.duration_adequate}" title="#{bundle.ViewTrainingFeedbackTitle_duration_adequate}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_practicality}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.practicality}" title="#{bundle.ViewTrainingFeedbackTitle_practicality}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_usefullness}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.usefullness}" title="#{bundle.ViewTrainingFeedbackTitle_usefullness}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_practicle_and_theory_concurancy}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.practicle_and_theory_concurancy}" title="#{bundle.ViewTrainingFeedbackTitle_practicle_and_theory_concurancy}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_lecture_halls}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.lecture_halls}" title="#{bundle.ViewTrainingFeedbackTitle_lecture_halls}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_staff_coperation}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.staff_coperation}" title="#{bundle.ViewTrainingFeedbackTitle_staff_coperation}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_meals}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.meals}" title="#{bundle.ViewTrainingFeedbackTitle_meals}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_toilets}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.toilets}" title="#{bundle.ViewTrainingFeedbackTitle_toilets}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1Presentation}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1Presentation}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1Presentation}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1TimeManagement}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1TimeManagement}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1TimeManagement}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1SubjectAdequacy}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1SubjectAdequacy}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1SubjectAdequacy}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1relavanceToTopic}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1relavanceToTopic}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1relavanceToTopic}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1Practicles}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1Practicles}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1Practicles}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer1Lecturing}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer1Lecturing}" title="#{bundle.ViewTrainingFeedbackTitle_trainer1Lecturing}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2Presentation}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2Presentation}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2Presentation}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2TimeManagement}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2TimeManagement}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2TimeManagement}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2SubjectAdequacy}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2SubjectAdequacy}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2SubjectAdequacy}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2relavanceToTopic}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2relavanceToTopic}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2relavanceToTopic}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2Practicles}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2Practicles}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2Practicles}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer2Lecturing}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer2Lecturing}" title="#{bundle.ViewTrainingFeedbackTitle_trainer2Lecturing}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3Presentation}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3Presentation}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3Presentation}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3TimeManagement}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3TimeManagement}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3TimeManagement}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3SubjectAdequacy}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3SubjectAdequacy}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3SubjectAdequacy}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3relavanceToTopic}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3relavanceToTopic}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3relavanceToTopic}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3Practicles}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3Practicles}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3Practicles}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_trainer3Lecturing}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.trainer3Lecturing}" title="#{bundle.ViewTrainingFeedbackTitle_trainer3Lecturing}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_comments}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.comments}" title="#{bundle.ViewTrainingFeedbackTitle_comments}"/>
+                        <h:outputText value="#{bundle.ViewTrainingFeedbackLabel_id}"/>
+                        <h:outputText value="#{trainingFeedbackController.selected.id}" title="#{bundle.ViewTrainingFeedbackTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TrainingFeedbackViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingSessionViewDlg" widgetVar="TrainingSessionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTrainingSessionTitle}">
+            <h:form id="TrainingSessionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingSessionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_training}"/>
+                        <h:outputText value="#{trainingSessionController.selected.training}" title="#{bundle.ViewTrainingSessionTitle_training}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_sessionNo}"/>
+                        <h:outputText value="#{trainingSessionController.selected.sessionNo}" title="#{bundle.ViewTrainingSessionTitle_sessionNo}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_trainingDate}"/>
+                        <h:outputText value="#{trainingSessionController.selected.trainingDate}" title="#{bundle.ViewTrainingSessionTitle_trainingDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_trainingFrom}"/>
+                        <h:outputText value="#{trainingSessionController.selected.trainingFrom}" title="#{bundle.ViewTrainingSessionTitle_trainingFrom}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_trainingTo}"/>
+                        <h:outputText value="#{trainingSessionController.selected.trainingTo}" title="#{bundle.ViewTrainingSessionTitle_trainingTo}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_expectedCount}"/>
+                        <h:outputText value="#{trainingSessionController.selected.expectedCount}" title="#{bundle.ViewTrainingSessionTitle_expectedCount}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_participantCount}"/>
+                        <h:outputText value="#{trainingSessionController.selected.participantCount}" title="#{bundle.ViewTrainingSessionTitle_participantCount}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_informedAbsenteesCount}"/>
+                        <h:outputText value="#{trainingSessionController.selected.informedAbsenteesCount}" title="#{bundle.ViewTrainingSessionTitle_informedAbsenteesCount}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_nonInformedAbsenteesCount}"/>
+                        <h:outputText value="#{trainingSessionController.selected.nonInformedAbsenteesCount}" title="#{bundle.ViewTrainingSessionTitle_nonInformedAbsenteesCount}"/>
+                        <h:outputText value="#{bundle.ViewTrainingSessionLabel_id}"/>
+                        <h:outputText value="#{trainingSessionController.selected.id}" title="#{bundle.ViewTrainingSessionTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TrainingSessionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingSessionEditDlg" widgetVar="TrainingSessionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTrainingSessionTitle}">
+            <h:form id="TrainingSessionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingSessionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_training}" for="training" />
+                        <p:selectOneMenu id="training" value="#{trainingSessionController.selected.training}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{trainingController.itemsAvailableSelectOne}"
+                                           var="trainingItem"
+                                           itemValue="#{trainingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_sessionNo}" for="sessionNo" />
+                        <p:inputText id="sessionNo" value="#{trainingSessionController.selected.sessionNo}" title="#{bundle.EditTrainingSessionTitle_sessionNo}" />
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_trainingDate}" for="trainingDate" />
+                        <p:calendar id="trainingDate" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingDate}" title="#{bundle.EditTrainingSessionTitle_trainingDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_trainingFrom}" for="trainingFrom" />
+                        <p:calendar id="trainingFrom" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingFrom}" title="#{bundle.EditTrainingSessionTitle_trainingFrom}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_trainingTo}" for="trainingTo" />
+                        <p:calendar id="trainingTo" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingTo}" title="#{bundle.EditTrainingSessionTitle_trainingTo}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_expectedCount}" for="expectedCount" />
+                        <p:inputText id="expectedCount" value="#{trainingSessionController.selected.expectedCount}" title="#{bundle.EditTrainingSessionTitle_expectedCount}" />
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_participantCount}" for="participantCount" />
+                        <p:inputText id="participantCount" value="#{trainingSessionController.selected.participantCount}" title="#{bundle.EditTrainingSessionTitle_participantCount}" />
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_informedAbsenteesCount}" for="informedAbsenteesCount" />
+                        <p:inputText id="informedAbsenteesCount" value="#{trainingSessionController.selected.informedAbsenteesCount}" title="#{bundle.EditTrainingSessionTitle_informedAbsenteesCount}" />
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_nonInformedAbsenteesCount}" for="nonInformedAbsenteesCount" />
+                        <p:inputText id="nonInformedAbsenteesCount" value="#{trainingSessionController.selected.nonInformedAbsenteesCount}" title="#{bundle.EditTrainingSessionTitle_nonInformedAbsenteesCount}" />
+                        <p:outputLabel value="#{bundle.EditTrainingSessionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{trainingSessionController.selected.id}" title="#{bundle.EditTrainingSessionTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trainingSessionController.update}" value="#{bundle.Save}" update="display,:TrainingSessionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingSessionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TrainingSessionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingViewDlg" widgetVar="TrainingViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTrainingTitle}">
+            <h:form id="TrainingViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTrainingLabel_department}"/>
+                        <h:outputText value="#{trainingController.selected.department}" title="#{bundle.ViewTrainingTitle_department}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_institute}"/>
+                        <h:outputText value="#{trainingController.selected.institute}" title="#{bundle.ViewTrainingTitle_institute}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_heldAtdepartment}"/>
+                        <h:outputText value="#{trainingController.selected.heldAtdepartment}" title="#{bundle.ViewTrainingTitle_heldAtdepartment}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_headAtinstitute}"/>
+                        <h:outputText value="#{trainingController.selected.headAtinstitute}" title="#{bundle.ViewTrainingTitle_headAtinstitute}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_name}"/>
+                        <h:outputText value="#{trainingController.selected.name}" title="#{bundle.ViewTrainingTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_numberStr}"/>
+                        <h:outputText value="#{trainingController.selected.numberStr}" title="#{bundle.ViewTrainingTitle_numberStr}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_numberLong}"/>
+                        <h:outputText value="#{trainingController.selected.numberLong}" title="#{bundle.ViewTrainingTitle_numberLong}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_startDate}"/>
+                        <h:outputText value="#{trainingController.selected.startDate}" title="#{bundle.ViewTrainingTitle_startDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_objectives}"/>
+                        <h:outputText value="#{trainingController.selected.objectives}" title="#{bundle.ViewTrainingTitle_objectives}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_contents}"/>
+                        <h:outputText value="#{trainingController.selected.contents}" title="#{bundle.ViewTrainingTitle_contents}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_methodology}"/>
+                        <h:outputText value="#{trainingController.selected.methodology}" title="#{bundle.ViewTrainingTitle_methodology}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_participants}"/>
+                        <h:outputText value="#{trainingController.selected.participants}" title="#{bundle.ViewTrainingTitle_participants}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_numberOfDays}"/>
+                        <h:outputText value="#{trainingController.selected.numberOfDays}" title="#{bundle.ViewTrainingTitle_numberOfDays}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_conductedBy}"/>
+                        <h:outputText value="#{trainingController.selected.conductedBy}" title="#{bundle.ViewTrainingTitle_conductedBy}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_comments}"/>
+                        <h:outputText value="#{trainingController.selected.comments}" title="#{bundle.ViewTrainingTitle_comments}"/>
+                        <h:outputText value="#{bundle.ViewTrainingLabel_id}"/>
+                        <h:outputText value="#{trainingController.selected.id}" title="#{bundle.ViewTrainingTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TrainingViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
