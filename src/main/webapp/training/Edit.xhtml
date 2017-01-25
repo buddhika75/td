@@ -11,59 +11,54 @@
         <p:dialog id="TrainingEditDlg" widgetVar="TrainingEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTrainingTitle}">
             <h:form id="TrainingEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{trainingController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_department}" for="department" />
-                        <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
-                                           var="departmentItem"
-                                           itemValue="#{departmentItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_institute}" for="institute" />
+                    <p:panelGrid columns="4" rendered="#{trainingController.selected != null}" style="vertical-align: text-top;">
+
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{trainingController.selected.institute}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
+                                           itemLabel="#{instituteItem.name}"
                                            itemValue="#{instituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_heldAtdepartment}" for="heldAtdepartment" />
-                        <p:selectOneMenu id="heldAtdepartment" value="#{trainingController.selected.heldAtdepartment}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
+                        <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
-                                           var="heldAtdepartmentItem"
-                                           itemValue="#{heldAtdepartmentItem}"/>
+                                           var="departmentItem"
+                                           itemLabel="#{departmentItem.name}"
+                                           itemValue="#{departmentItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_headAtinstitute}" for="headAtinstitute" />
+
+                        <p:outputLabel value="Place" for="headAtinstitute" />
                         <p:selectOneMenu id="headAtinstitute" value="#{trainingController.selected.headAtinstitute}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="headAtinstituteItem"
+                                           itemLabel="#{headAtinstituteItem.name}"
                                            itemValue="#{headAtinstituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.EditTrainingTitle_name}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_numberStr}" for="numberStr" />
-                        <p:inputText id="numberStr" value="#{trainingController.selected.numberStr}" title="#{bundle.EditTrainingTitle_numberStr}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_numberLong}" for="numberLong" />
-                        <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.EditTrainingTitle_numberLong}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_startDate}" for="startDate" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.CreateTrainingTitle_name}" />
+                        <p:outputLabel value="Training Number" for="numberStr" />
+                        <p:inputText id="numberStr" value="#{trainingController.selected.numberStr}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                        <p:outputLabel value="Number of Participants" for="numberLong" />
+                        <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                        <p:outputLabel value="Start Date" for="startDate" />
                         <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_objectives}" for="objectives" />
-                        <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selected.objectives}" title="#{bundle.EditTrainingTitle_objectives}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_contents}" for="contents" />
-                        <p:inputTextarea rows="4" cols="30" id="contents" value="#{trainingController.selected.contents}" title="#{bundle.EditTrainingTitle_contents}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_methodology}" for="methodology" />
-                        <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selected.methodology}" title="#{bundle.EditTrainingTitle_methodology}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_participants}" for="participants" />
-                        <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selected.participants}" title="#{bundle.EditTrainingTitle_participants}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_numberOfDays}" for="numberOfDays" />
-                        <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.EditTrainingTitle_numberOfDays}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_conductedBy}" for="conductedBy" />
-                        <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.EditTrainingTitle_conductedBy}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_comments}" for="comments" />
-                        <p:inputText id="comments" value="#{trainingController.selected.comments}" title="#{bundle.EditTrainingTitle_comments}" />
-                        <p:outputLabel value="#{bundle.EditTrainingLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{trainingController.selected.id}" title="#{bundle.EditTrainingTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
+                        <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
+                        <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_objectives}" for="objectives" />
+                        <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selected.objectives}" title="#{bundle.CreateTrainingTitle_objectives}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_contents}" for="contents" />
+                        <p:inputTextarea rows="4" cols="30" id="contents" value="#{trainingController.selected.contents}" title="#{bundle.CreateTrainingTitle_contents}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_methodology}" for="methodology" />
+                        <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selected.methodology}" title="#{bundle.CreateTrainingTitle_methodology}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_participants}" for="participants" />
+                        <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selected.participants}" title="#{bundle.CreateTrainingTitle_participants}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{trainingController.update}" value="#{bundle.Save}" update="display,:TrainingListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TrainingEditDialog.hide()"/>

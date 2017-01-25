@@ -17,74 +17,35 @@ import javax.persistence.ManyToOne;
  * @author pdhs-sp
  */
 @Entity
-public class Person implements Serializable {
+public class PersonItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    String name;
-    String nic;
+
     @ManyToOne
-    Institute institute;
+    Person person;
     @ManyToOne
-    Department department;
-    String phone;
-    String email;
-    @ManyToOne
-    Item designation;
-    
+    Item item;
 
-    public String getName() {
-        return name;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public String getNic() {
-        return nic;
+    public Item getItem() {
+        return item;
     }
 
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
-
-    public Institute getInstitute() {
-        return institute;
-    }
-
-    public void setInstitute(Institute institute) {
-        this.institute = institute;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setItem(Item item) {
+        this.item = item;
     }
     
     
     
-
     public Long getId() {
         return id;
     }
@@ -103,10 +64,10 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
+        if (!(object instanceof PersonItem)) {
             return false;
         }
-        Person other = (Person) object;
+        PersonItem other = (PersonItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -115,7 +76,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.sp.healthdept.td.entity.TrainingPerson[ id=" + id + " ]";
+        return "lk.gov.sp.healthdept.td.entity.PersonItem[ id=" + id + " ]";
     }
     
 }

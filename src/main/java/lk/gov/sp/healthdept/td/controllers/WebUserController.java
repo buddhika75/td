@@ -4,7 +4,9 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,55 @@ public class WebUserController implements Serializable {
     private lk.gov.sp.healthdept.td.facades.WebUserFacade ejbFacade;
     private List<WebUser> items = null;
     private WebUser selected;
+    WebUser loggedUser;
+    String userName;
+    String password;
+
+    public String login() {
+        if (userName.trim().equals("")) {
+            JsfUtil.addErrorMessage("Enter a Username");
+            return "";
+        }
+        if (password.trim().equals("")) {
+            JsfUtil.addErrorMessage("Enter a Username");
+            return "";
+        }
+        String j = "select w from WebUser w where w.userName=:un and w.password=:pw";
+        Map m = new HashMap();
+        m.put("un", userName);
+        m.put("pw", password);
+        loggedUser = getFacade().findFirstBySQL(j, m);
+        return "";
+    }
+
+    public String logOut() {
+        loggedUser = null;
+        return "";
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public WebUser getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(WebUser loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 
     public WebUserController() {
     }

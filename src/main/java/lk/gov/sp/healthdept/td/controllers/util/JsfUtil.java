@@ -1,5 +1,7 @@
 package lk.gov.sp.healthdept.td.controllers.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -8,6 +10,27 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
 public class JsfUtil {
+
+    public static Date firstDayOfYear(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.DAY_OF_YEAR, 1);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.MILLISECOND, 1);
+        return c.getTime();
+    }
+
+    public static Date lastDayOfYear(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.DAY_OF_MONTH, 31);
+        c.set(Calendar.MONTH, Calendar.DECEMBER);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.MILLISECOND, 999);
+        return c.getTime();
+    }
 
     public static SelectItem[] getSelectItems(List<?> entities, boolean selectOne) {
         int size = selectOne ? entities.size() + 1 : entities.size();

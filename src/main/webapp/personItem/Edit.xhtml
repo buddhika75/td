@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonItemEditDlg" widgetVar="PersonItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.EditPersonItemTitle}">
+            <h:form id="PersonItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personItemController.selected != null}">
+                        <p:outputLabel value="#{bundle1.EditPersonItemLabel_person}" for="person" />
+                        <p:selectOneMenu id="person" value="#{personItemController.selected.person}" >
+                            <f:selectItem itemLabel="#{bundle1.SelectOneMessage}"/>
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="personItem"
+                                           itemValue="#{personItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle1.EditPersonItemLabel_item}" for="item" />
+                        <p:selectOneMenu id="item" value="#{personItemController.selected.item}" >
+                            <f:selectItem itemLabel="#{bundle1.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="itemItem"
+                                           itemValue="#{itemItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle1.EditPersonItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{personItemController.selected.id}" title="#{bundle1.EditPersonItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personItemController.update}" value="#{bundle1.Save}" update="display,:PersonItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonItemEditDialog');"/>
+                    <p:commandButton value="#{bundle1.Cancel}" onclick="PersonItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

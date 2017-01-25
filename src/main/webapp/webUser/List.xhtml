@@ -51,12 +51,6 @@
                             </f:facet>
                             <h:outputText value="#{item.email}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListWebUserTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{webUserController.prepareCreate}" update=":WebUserCreateForm" oncomplete="PF('WebUserCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":WebUserViewForm" oncomplete="PF('WebUserViewDialog').show()" disabled="#{empty webUserController.selected}"/>

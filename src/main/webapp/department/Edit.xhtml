@@ -12,17 +12,16 @@
             <h:form id="DepartmentEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{departmentController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDepartmentLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.EditDepartmentTitle_name}" />
-                        <p:outputLabel value="#{bundle.EditDepartmentLabel_institute}" for="institute" />
+                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.CreateDepartmentTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{departmentController.selected.institute}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
+                                           itemLabel="#{instituteItem.name}"
                                            itemValue="#{instituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditDepartmentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{departmentController.selected.id}" title="#{bundle.EditDepartmentTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentController.update}" value="#{bundle.Save}" update="display,:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartmentEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DepartmentEditDialog.hide()"/>

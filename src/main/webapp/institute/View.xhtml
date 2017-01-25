@@ -15,9 +15,7 @@
                         <h:outputText value="#{bundle.ViewInstituteLabel_name}"/>
                         <h:outputText value="#{instituteController.selected.name}" title="#{bundle.ViewInstituteTitle_name}"/>
                         <h:outputText value="#{bundle.ViewInstituteLabel_parentInstitute}"/>
-                        <h:outputText value="#{instituteController.selected.parentInstitute}" title="#{bundle.ViewInstituteTitle_parentInstitute}"/>
-                        <h:outputText value="#{bundle.ViewInstituteLabel_id}"/>
-                        <h:outputText value="#{instituteController.selected.id}" title="#{bundle.ViewInstituteTitle_id}"/>
+                        <h:outputText value="#{instituteController.selected.parentInstitute.name}" title="#{bundle.ViewInstituteTitle_parentInstitute}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="InstituteViewDialog.hide()"/>
                 </h:panelGroup>

@@ -16,12 +16,12 @@
                         <p:inputText id="name" value="#{departmentController.selected.name}" title="#{bundle.CreateDepartmentTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateDepartmentLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{departmentController.selected.institute}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
+                                           itemLabel="#{instituteItem.name}"
                                            itemValue="#{instituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDepartmentLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{departmentController.selected.id}" title="#{bundle.CreateDepartmentTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{departmentController.create}" value="#{bundle.Save}" update="display,:DepartmentListForm:datalist,:growl" oncomplete="handleSubmit(args,'DepartmentCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="DepartmentCreateDialog.hide()"/>

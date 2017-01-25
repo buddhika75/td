@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonTrainingCreateDlg" widgetVar="PersonTrainingCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.CreatePersonTrainingTitle}">
+            <h:form id="PersonTrainingCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personTrainingController.selected != null}">
+                        <p:outputLabel value="#{bundle1.CreatePersonTrainingLabel_person}" for="person" />
+                        <p:selectOneMenu id="person" value="#{personTrainingController.selected.person}" >
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="personItem"
+                                           itemValue="#{personItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle1.CreatePersonTrainingLabel_training}" for="training" />
+                        <p:selectOneMenu id="training" value="#{personTrainingController.selected.training}" >
+                            <f:selectItems value="#{trainingController.itemsAvailableSelectOne}"
+                                           var="trainingItem"
+                                           itemValue="#{trainingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle1.CreatePersonTrainingLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{personTrainingController.selected.category}" title="#{bundle1.CreatePersonTrainingTitle_category}" />
+                        <p:outputLabel value="#{bundle1.CreatePersonTrainingLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{personTrainingController.selected.id}" title="#{bundle1.CreatePersonTrainingTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personTrainingController.create}" value="#{bundle1.Save}" update="display,:PersonTrainingListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonTrainingCreateDialog');"/>
+                    <p:commandButton value="#{bundle1.Cancel}" onclick="PersonTrainingCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

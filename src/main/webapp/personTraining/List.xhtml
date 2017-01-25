@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle1.ListPersonTrainingTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="PersonTrainingListForm">
+                <p:panel header="#{bundle1.ListPersonTrainingTitle}">
+                    <p:dataTable id="datalist" value="#{personTrainingController.items}" var="item"
+                                 selectionMode="single" selection="#{personTrainingController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle1.ListPersonTrainingTitle_person}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.person}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle1.ListPersonTrainingTitle_training}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.training}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle1.ListPersonTrainingTitle_category}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.category}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle1.ListPersonTrainingTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle1.Create}" actionListener="#{personTrainingController.prepareCreate}" update=":PersonTrainingCreateForm" oncomplete="PF('PersonTrainingCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle1.View}" update=":PersonTrainingViewForm" oncomplete="PF('PersonTrainingViewDialog').show()" disabled="#{empty personTrainingController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle1.Edit}" update=":PersonTrainingEditForm" oncomplete="PF('PersonTrainingEditDialog').show()" disabled="#{empty personTrainingController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle1.Delete}" actionListener="#{personTrainingController.destroy}" update=":growl,datalist" disabled="#{empty personTrainingController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTrainingTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <h:form >
+
+                <p:commandButton value="Print" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
+                    <p:printer target="details" />
+                </p:commandButton>
+
+
+                <p:panel id="details"  >
+                    <ui:repeat value="#{trainingController.items}" var="i" >
+
+
+
+
+                        <table>
+                            <tr>
+                                <td width="20%" >
+                                    <h:outputLabel value="මාසය" ></h:outputLabel>
+                                </td>
+                                <td width="80%">
+                                    <h:outputText value="#{i.startDate}" >
+                                        <f:convertDateTime pattern="MMMM yyyy" ></f:convertDateTime>
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" >
+                                    <b>
+                                        <u>
+                                            <h:outputLabel value="පුහුණුව" ></h:outputLabel>
+                                        </u>
+                                    </b>
+
+                                </td>
+                                <td width="80%">
+                                    <b>
+                                        <u>
+                                            <h:outputText value="#{i.name}" >
+                                            </h:outputText>
+                                        </u>
+                                    </b>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" >
+                                    <h:outputLabel value="අංකය" ></h:outputLabel>
+                                </td>
+                                <td width="80%">
+                                    <h:outputText value="#{i.numberStr}" >
+                                    </h:outputText>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    <h:outputLabel value="අංශය" ></h:outputLabel>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="#{i.department.name}" >
+                                    </h:outputLabel>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="අරමුණ" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.objectives}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="අන්තර්ගතය" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.contents}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="ක්‍රමවේදය" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.methodology}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="මෙහෙයවීම"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.conductedBy}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="සහභාගීවන අය" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.participants}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="දින ගණන" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.numberOfDays }"></h:outputLabel>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="සහභාගීවන සංඛ්‍යාව" ></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{i.numberLong}"></h:outputLabel>
+                                </td>
+                            </tr>
+
+
+
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                    </ui:repeat>
+                </p:panel>
+
+
+
+
+
+
+            </h:form>
+
+
+
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

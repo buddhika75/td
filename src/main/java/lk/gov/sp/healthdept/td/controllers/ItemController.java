@@ -1,12 +1,12 @@
 package lk.gov.sp.healthdept.td.controllers;
 
+import lk.gov.sp.healthdept.td.entity.Item;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
+import lk.gov.sp.healthdept.td.facades.ItemFacade;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,37 +18,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import lk.gov.sp.healthdept.td.entity.Department;
-import lk.gov.sp.healthdept.td.facades.DepartmentFacade;
 
-@Named("departmentController")
+@Named("itemController")
 @SessionScoped
-public class DepartmentController implements Serializable {
+public class ItemController implements Serializable {
 
     @EJB
-    private lk.gov.sp.healthdept.td.facades.DepartmentFacade ejbFacade;
-    private List<Department> items = null;
-    private Department selected;
+    private lk.gov.sp.healthdept.td.facades.ItemFacade ejbFacade;
+    private List<Item> items = null;
+    private Item selected;
 
-    
-    
-    public List<Department> completeDepartments(String qry){
-        String j = "select d from Department d "
-                + " where upper(d.name) like :n "
-                + " order by d.name";
-        Map m = new HashMap();
-        m.put("n", "%" + qry.toUpperCase() + "%");
-        return getFacade().findBySQL(j, m);
-    }
-    
-    public DepartmentController() {
+    public ItemController() {
     }
 
-    public Department getSelected() {
+    public Item getSelected() {
         return selected;
     }
 
-    public void setSelected(Department selected) {
+    public void setSelected(Item selected) {
         this.selected = selected;
     }
 
@@ -58,36 +45,36 @@ public class DepartmentController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private DepartmentFacade getFacade() {
+    private ItemFacade getFacade() {
         return ejbFacade;
     }
 
-    public Department prepareCreate() {
-        selected = new Department();
+    public Item prepareCreate() {
+        selected = new Item();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DepartmentCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle1").getString("ItemCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("DepartmentUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle1").getString("ItemUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("DepartmentDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle1").getString("ItemDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Department> getItems() {
+    public List<Item> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -113,38 +100,38 @@ public class DepartmentController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle1").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle1").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Department getDepartment(java.lang.Long id) {
+    public Item getItem(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Department> getItemsAvailableSelectMany() {
+    public List<Item> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Department> getItemsAvailableSelectOne() {
+    public List<Item> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Department.class)
-    public static class DepartmentControllerConverter implements Converter {
+    @FacesConverter(forClass = Item.class)
+    public static class ItemControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DepartmentController controller = (DepartmentController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "departmentController");
-            return controller.getDepartment(getKey(value));
+            ItemController controller = (ItemController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "itemController");
+            return controller.getItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -164,11 +151,11 @@ public class DepartmentController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Department) {
-                Department o = (Department) object;
+            if (object instanceof Item) {
+                Item o = (Item) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Department.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Item.class.getName()});
                 return null;
             }
         }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonItemViewDlg" widgetVar="PersonItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle1.ViewPersonItemTitle}">
+            <h:form id="PersonItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personItemController.selected != null}">
+                        <h:outputText value="#{bundle1.ViewPersonItemLabel_person}"/>
+                        <h:outputText value="#{personItemController.selected.person}" title="#{bundle1.ViewPersonItemTitle_person}"/>
+                        <h:outputText value="#{bundle1.ViewPersonItemLabel_item}"/>
+                        <h:outputText value="#{personItemController.selected.item}" title="#{bundle1.ViewPersonItemTitle_item}"/>
+                        <h:outputText value="#{bundle1.ViewPersonItemLabel_id}"/>
+                        <h:outputText value="#{personItemController.selected.id}" title="#{bundle1.ViewPersonItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle1.Close}" onclick="PersonItemViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

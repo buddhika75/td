@@ -1,39 +1,28 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/department/List" value="Show All Department Items"/>
-        <br />
-        <h:link outcome="/institute/List" value="Show All Institute Items"/>
-        <br />
-        <h:link outcome="/person/List" value="Show All Person Items"/>
-        <br />
-        <h:link outcome="/personSession/List" value="Show All PersonSession Items"/>
-        <br />
-        <h:link outcome="/training/List" value="Show All Training Items"/>
-        <br />
-        <h:link outcome="/trainingFeedback/List" value="Show All TrainingFeedback Items"/>
-        <br />
-        <h:link outcome="/trainingSession/List" value="Show All TrainingSession Items"/>
-        <br />
-        <h:link outcome="/webUser/List" value="Show All WebUser Items"/>
-    </h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="body">
+                <h1>Training Details Database</h1>
+                <h2>
+                    Department of Health Services - Southern Province
+                </h2>
 
 
 
+            </ui:define>
 
+        </ui:composition>
 
+        <br />
+        
+    </body>
 
 
 
 </html>
-

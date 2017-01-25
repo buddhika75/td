@@ -14,14 +14,10 @@
                     <p:panelGrid columns="2" rendered="#{webUserController.selected != null}">
                         <h:outputText value="#{bundle.ViewWebUserLabel_userName}"/>
                         <h:outputText value="#{webUserController.selected.userName}" title="#{bundle.ViewWebUserTitle_userName}"/>
-                        <h:outputText value="#{bundle.ViewWebUserLabel_password}"/>
-                        <h:outputText value="#{webUserController.selected.password}" title="#{bundle.ViewWebUserTitle_password}"/>
                         <h:outputText value="#{bundle.ViewWebUserLabel_name}"/>
                         <h:outputText value="#{webUserController.selected.name}" title="#{bundle.ViewWebUserTitle_name}"/>
                         <h:outputText value="#{bundle.ViewWebUserLabel_email}"/>
                         <h:outputText value="#{webUserController.selected.email}" title="#{bundle.ViewWebUserTitle_email}"/>
-                        <h:outputText value="#{bundle.ViewWebUserLabel_id}"/>
-                        <h:outputText value="#{webUserController.selected.id}" title="#{bundle.ViewWebUserTitle_id}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="WebUserViewDialog.hide()"/>
                 </h:panelGroup>

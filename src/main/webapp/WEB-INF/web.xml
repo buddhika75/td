@@ -15,10 +15,14 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            3000
         </session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>sunny</param-value>
+    </context-param>
 </web-app>

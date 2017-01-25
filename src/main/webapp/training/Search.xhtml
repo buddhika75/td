@@ -15,34 +15,79 @@
 
         <ui:define name="body">
             <h:form id="TrainingListForm">
+
+                <p:panelGrid columns="8" >
+                    <p:outputLabel value="Department" ></p:outputLabel>
+                    <p:autoComplete value="#{trainingController.department}"
+                                    var="d"
+                                    itemLabel="#{d.name}"
+                                    itemValue="#{d}"
+                                    completeMethod="#{departmentController.completeDepartments}" >
+                    </p:autoComplete>
+                    <p:spacer height="1" width="10" >
+                    </p:spacer>
+
+                    <p:outputLabel value="From" ></p:outputLabel>
+                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd"></p:calendar>
+                    <p:spacer height="1" width="10" >
+                    </p:spacer>
+
+                    <p:outputLabel value="To" ></p:outputLabel>
+                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd"></p:calendar>
+
+                    <p:commandButton value="Search" action="#{trainingController.searchSchedules()}" ajax="false" ></p:commandButton>
+                    
+                    <p:commandButton value="Make All Schedules" action="#{trainingController.makeAllTrainingsSchedulesSchedules()}" ajax="false" ></p:commandButton>
+
+                </p:panelGrid>
+
                 <p:panel header="#{bundle.ListTrainingTitle}">
                     <f:facet name="header" >
-                        <p:outputLabel value="#{bundle.ListTrainingTitle}" ></p:outputLabel>
+                        <p:outputLabel value="Training Schedule " ></p:outputLabel>
+                        <br/>
+                        <p:outputLabel value="Department : " rendered="#{trainingController.department ne null}" ></p:outputLabel>
+                        <p:outputLabel value="#{trainingController.department.name}" rendered="#{trainingController.department ne null}" ></p:outputLabel>
+                        <p:outputLabel value="From : " ></p:outputLabel>
+                        <p:outputLabel value="#{trainingController.from}" >
+                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                        </p:outputLabel>
+                        <p:outputLabel value=", To : " ></p:outputLabel>
+                        <p:outputLabel value="#{trainingController.from}" >
+                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                        </p:outputLabel>
                         <p:commandButton value="Download as Excel"  ajax="false" style="float: right;" >
-                            <p:dataExporter type="csv" target="datalist" fileName="trainings" />
+                            <p:dataExporter type="xls" target="datalist" fileName="trainings" />
                         </p:commandButton>
                     </f:facet>
 
 
-                    <p:dataTable id="datalist" value="#{trainingController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{trainingController.selectedItems}" var="item"
                                  selectionMode="single" selection="#{trainingController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
-                                 rows="10"
+                                 rows="10" rowIndexVar="n"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                        <p:column width="10" >
+                            <f:facet name="header">
+                                <h:outputText value="SN"/>
+                            </f:facet>
+                            <h:outputText value="#{n+1}"/>
+
+                        </p:column>
+
+                        <p:column rendered="#{trainingController.department eq null}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTrainingTitle_institute}"/>
                             </f:facet>
                             <h:outputText value="#{item.institute.name}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column  rendered="#{trainingController.department eq null}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTrainingTitle_department}"/>
                             </f:facet>
@@ -61,9 +106,9 @@
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="50">
                             <f:facet name="header">
-                                <h:outputText value="Training No."/>
+                                <h:outputText value="No."/>
                             </f:facet>
                             <h:outputText value="#{item.numberStr}"/>
                         </p:column>
@@ -112,9 +157,9 @@
                             </f:facet>
                             <h:outputText value="#{item.conductedBy}"/>
                         </p:column>
-                        <p:column>
+                        <p:column width="20">
                             <f:facet name="header">
-                                <h:outputText value="No. of Participants"/>
+                                <h:outputText value="Participants"/>
                             </f:facet>
                             <h:outputText value="#{item.numberLong}"/>
                         </p:column>

@@ -8,11 +8,14 @@ package lk.gov.sp.healthdept.td.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -52,6 +55,57 @@ public class Training implements Serializable {
     Department heldAtdepartment;
     @ManyToOne
     Institute headAtinstitute;
+    
+    
+    
+    @Enumerated(EnumType.STRING)
+    TrainingCategory trainingCategory;
+
+    Boolean completed;
+    
+    @OneToOne
+    Training completedTraining;
+    
+    @OneToOne(mappedBy = "completedTraining")
+    Training scheduledTraining;
+
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+    public Training getCompletedTraining() {
+        return completedTraining;
+    }
+
+    public void setCompletedTraining(Training completedTraining) {
+        this.completedTraining = completedTraining;
+    }
+
+    public Training getScheduledTraining() {
+        return scheduledTraining;
+    }
+
+    public void setScheduledTraining(Training scheduledTraining) {
+        this.scheduledTraining = scheduledTraining;
+    }
+    
+    
+    
+    
+    
+    public TrainingCategory getTrainingCategory() {
+        return trainingCategory;
+    }
+
+    public void setTrainingCategory(TrainingCategory trainingCategory) {
+        this.trainingCategory = trainingCategory;
+    }
+    
+    
 
     public Department getDepartment() {
         return department;

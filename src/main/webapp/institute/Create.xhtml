@@ -16,12 +16,12 @@
                         <p:inputText id="name" value="#{instituteController.selected.name}" title="#{bundle.CreateInstituteTitle_name}" />
                         <p:outputLabel value="#{bundle.CreateInstituteLabel_parentInstitute}" for="parentInstitute" />
                         <p:selectOneMenu id="parentInstitute" value="#{instituteController.selected.parentInstitute}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="parentInstituteItem"
+                                           itemLabel="#{parentInstituteItem.name}"
                                            itemValue="#{parentInstituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateInstituteLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{instituteController.selected.id}" title="#{bundle.CreateInstituteTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{instituteController.create}" value="#{bundle.Save}" update="display,:InstituteListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstituteCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="InstituteCreateDialog.hide()"/>

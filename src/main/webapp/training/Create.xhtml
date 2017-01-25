@@ -9,41 +9,51 @@
     <ui:composition>
 
         <p:dialog id="TrainingCreateDlg" widgetVar="TrainingCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTrainingTitle}">
+            
+            
             <h:form id="TrainingCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{trainingController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
-                        <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
-                            <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
-                                           var="departmentItem"
-                                           itemValue="#{departmentItem}"/>
-                        </p:selectOneMenu>
+                    <p:panelGrid columns="4" rendered="#{trainingController.selected != null}" style="vertical-align: text-top;">
+
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_institute}" for="institute" />
                         <p:selectOneMenu id="institute" value="#{trainingController.selected.institute}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
+                                           itemLabel="#{instituteItem.name}"
                                            itemValue="#{instituteItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_heldAtdepartment}" for="heldAtdepartment" />
-                        <p:selectOneMenu id="heldAtdepartment" value="#{trainingController.selected.heldAtdepartment}" >
+
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
+                        <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
-                                           var="heldAtdepartmentItem"
-                                           itemValue="#{heldAtdepartmentItem}"/>
+                                           var="departmentItem"
+                                           itemLabel="#{departmentItem.name}"
+                                           itemValue="#{departmentItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_headAtinstitute}" for="headAtinstitute" />
+
+                        <p:outputLabel value="Place" for="headAtinstitute" />
                         <p:selectOneMenu id="headAtinstitute" value="#{trainingController.selected.headAtinstitute}" >
+                            <f:selectItem itemLabel="Select" ></f:selectItem>
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="headAtinstituteItem"
+                                           itemLabel="#{headAtinstituteItem.name}"
                                            itemValue="#{headAtinstituteItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_name}" for="name" />
-                        <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.CreateTrainingTitle_name}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_numberStr}" for="numberStr" />
+                        <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.CreateTrainingTitle_name}" style="width: 300px;" />
+                        <p:outputLabel value="Training Number" for="numberStr" />
                         <p:inputText id="numberStr" value="#{trainingController.selected.numberStr}" title="#{bundle.CreateTrainingTitle_numberStr}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_numberLong}" for="numberLong" />
-                        <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberLong}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_startDate}" for="startDate" />
+                        <p:outputLabel value="Number of Participants" for="numberLong" />
+                        <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+
+                        <p:outputLabel value="Start Date" for="startDate" />
                         <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
+                        <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
+                        <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
+                        <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_objectives}" for="objectives" />
                         <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selected.objectives}" title="#{bundle.CreateTrainingTitle_objectives}" />
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_contents}" for="contents" />
@@ -52,16 +62,8 @@
                         <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selected.methodology}" title="#{bundle.CreateTrainingTitle_methodology}" />
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_participants}" for="participants" />
                         <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selected.participants}" title="#{bundle.CreateTrainingTitle_participants}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
-                        <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
-                        <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_comments}" for="comments" />
-                        <p:inputText id="comments" value="#{trainingController.selected.comments}" title="#{bundle.CreateTrainingTitle_comments}" />
-                        <p:outputLabel value="#{bundle.CreateTrainingLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{trainingController.selected.id}" title="#{bundle.CreateTrainingTitle_id}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{trainingController.create}" value="#{bundle.Save}" update="display,:TrainingListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrainingCreateDialog');"/>
+                    <p:commandButton actionListener="#{trainingController.createSchedule}" value="#{bundle.Save}" update="display,:TrainingListForm:datalist,:growl" oncomplete="handleSubmit(args,'TrainingCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TrainingCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

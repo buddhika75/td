@@ -7,6 +7,8 @@ package lk.gov.sp.healthdept.td.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,73 +19,44 @@ import javax.persistence.ManyToOne;
  * @author pdhs-sp
  */
 @Entity
-public class Person implements Serializable {
+public class PersonTraining implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    String name;
-    String nic;
     @ManyToOne
-    Institute institute;
+    Person person;
     @ManyToOne
-    Department department;
-    String phone;
-    String email;
-    @ManyToOne
-    Item designation;
-    
+    Training training;
+    @Enumerated(EnumType.STRING)
+    PersonTrainingCategory category;
 
-    public String getName() {
-        return name;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public String getNic() {
-        return nic;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setNic(String nic) {
-        this.nic = nic;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
-    public Institute getInstitute() {
-        return institute;
+    public PersonTrainingCategory getCategory() {
+        return category;
     }
 
-    public void setInstitute(Institute institute) {
-        this.institute = institute;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCategory(PersonTrainingCategory category) {
+        this.category = category;
     }
     
     
-    
+            
 
     public Long getId() {
         return id;
@@ -103,10 +76,10 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
+        if (!(object instanceof PersonTraining)) {
             return false;
         }
-        Person other = (Person) object;
+        PersonTraining other = (PersonTraining) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -115,7 +88,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.sp.healthdept.td.entity.TrainingPerson[ id=" + id + " ]";
+        return "lk.gov.sp.healthdept.td.entity.PersonTraining[ id=" + id + " ]";
     }
     
 }

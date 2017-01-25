@@ -4,7 +4,10 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +19,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.sp.healthdept.td.entity.Department;
 import lk.gov.sp.healthdept.td.entity.Training;
+import lk.gov.sp.healthdept.td.entity.TrainingCategory;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
 
 @Named("trainingController")
@@ -27,7 +32,81 @@ public class TrainingController implements Serializable {
     private lk.gov.sp.healthdept.td.facades.TrainingFacade ejbFacade;
     private List<Training> items = null;
     private Training selected;
+    Department department;
+    Date from;
+    Date to;
+    private List<Training> selectedItems = null;
+    
+    
+     public void makeAllTrainingsSchedulesSchedules(){
+         List<Training> ts = getFacade().findAll();
+         int i=0;
+         for(Training t:ts){
+             t.setTrainingCategory(TrainingCategory.Scheduled_Training);
+             t.setCompleted(Boolean.FALSE);
+             getFacade().edit(t);
+             i++;
+             System.out.println("t = " + t);
+         }
+     }
+    
+    public String searchSchedules(){
+        String j = "Select t from Training t "
+                + " where t.startDate between :fd and :td "
+                + " and t.trainingCategory= :tc ";
+        Map m = new HashMap();
+        m.put("fd", from);
+        m.put("td", to);
+        m.put("tc", TrainingCategory.Scheduled_Training);
+        if(department != null){
+            j+= " and t.department=:dept";
+            m.put("dept", department);
+        }
+        j+= " order by t.startDate";
+        selectedItems = getFacade().findBySQL(j, m);
+        return "";
+    }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Date getFrom() {
+        if(from ==null) {
+            from = JsfUtil.firstDayOfYear(new Date());
+        }
+        return from;
+    }
+
+    public void setFrom(Date from) {
+        this.from = from;
+    }
+
+    public Date getTo() {
+        if(to==null){
+            to = JsfUtil.lastDayOfYear(new Date());
+        }
+        return to;
+    }
+
+    public void setTo(Date to) {
+        this.to = to;
+    }
+
+    public List<Training> getSelectedItems() {
+        return selectedItems;
+    }
+
+    public void setSelectedItems(List<Training> selectedItems) {
+        this.selectedItems = selectedItems;
+    }
+
+    
+    
     public TrainingController() {
     }
 
@@ -62,6 +141,16 @@ public class TrainingController implements Serializable {
         }
     }
 
+    
+    
+    public void createSchedule() {
+        selected.setTrainingCategory(TrainingCategory.Scheduled_Training);
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TrainingCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TrainingUpdated"));
     }

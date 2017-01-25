@@ -37,13 +37,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListInstituteTitle_parentInstitute}"/>
                             </f:facet>
-                            <h:outputText value="#{item.parentInstitute}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListInstituteTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.parentInstitute.name}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{instituteController.prepareCreate}" update=":InstituteCreateForm" oncomplete="PF('InstituteCreateDialog').show()"/>
