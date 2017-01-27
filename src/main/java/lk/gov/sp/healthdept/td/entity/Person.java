@@ -32,6 +32,16 @@ public class Person implements Serializable {
     String email;
     @ManyToOne
     Item designation;
+
+    public Item getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(Item designation) {
+        this.designation = designation;
+    }
+    
+    
     
 
     public String getName() {

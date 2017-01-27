@@ -39,12 +39,6 @@
                             </f:facet>
                             <h:outputText value="#{item.itemCategory}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle1.ListItemTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle1.Create}" actionListener="#{itemController.prepareCreate}" update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle1.View}" update=":ItemViewForm" oncomplete="PF('ItemViewDialog').show()" disabled="#{empty itemController.selected}"/>

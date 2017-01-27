@@ -165,7 +165,8 @@ public class TrainingController implements Serializable {
 
     public List<Training> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            String j = "select t from Training t order by t.startDate";
+            items = getFacade().findBySQL(j);
         }
         return items;
     }

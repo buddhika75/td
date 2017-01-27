@@ -6,7 +6,9 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 import lk.gov.sp.healthdept.td.facades.ItemFacade;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.sp.healthdept.td.entity.ItemCategory;
 
 @Named("itemController")
 @SessionScoped
@@ -28,6 +31,15 @@ public class ItemController implements Serializable {
     private List<Item> items = null;
     private Item selected;
 
+    
+    public List<Item> completeDesignations(String qry){
+        String j;
+        Map m = new HashMap();
+        j="select i from Item i where i.itemCategory=:c order by i.name";
+        m.put("c", ItemCategory.Position);
+        return getFacade().findBySQL(j, m);
+    }
+    
     public ItemController() {
     }
 

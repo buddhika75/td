@@ -16,8 +16,6 @@
                         <p:inputText id="name" value="#{itemController.selected.name}" title="#{bundle1.CreateItemTitle_name}" />
                         <p:outputLabel value="#{bundle1.CreateItemLabel_itemCategory}" for="itemCategory" />
                         <p:inputText id="itemCategory" value="#{itemController.selected.itemCategory}" title="#{bundle1.CreateItemTitle_itemCategory}" />
-                        <p:outputLabel value="#{bundle1.CreateItemLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{itemController.selected.id}" title="#{bundle1.CreateItemTitle_id}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{itemController.create}" value="#{bundle1.Save}" update="display,:ItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'ItemCreateDialog');"/>
                     <p:commandButton value="#{bundle1.Cancel}" onclick="ItemCreateDialog.hide()"/>

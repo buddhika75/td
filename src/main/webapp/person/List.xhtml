@@ -65,9 +65,11 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonTitle_id}"/>
+                                <h:outputText value="Position"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <p:autoComplete value="#{item.designation}" completeMethod="#{itemController.completeDesignations}"
+                                            var="d" itemLabel="#{d.name}" itemValue="#{d}">
+                            </p:autoComplete>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personController.prepareCreate}" update=":PersonCreateForm" oncomplete="PF('PersonCreateDialog').show()"/>
