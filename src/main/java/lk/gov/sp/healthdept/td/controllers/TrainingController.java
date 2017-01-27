@@ -4,6 +4,9 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import lk.gov.sp.healthdept.td.entity.Department;
+import lk.gov.sp.healthdept.td.entity.MonthlyTrainings;
 import lk.gov.sp.healthdept.td.entity.Training;
 import lk.gov.sp.healthdept.td.entity.TrainingCategory;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
@@ -36,35 +40,57 @@ public class TrainingController implements Serializable {
     Date from;
     Date to;
     private List<Training> selectedItems = null;
-    
-    
-     public void makeAllTrainingsSchedulesSchedules(){
-         List<Training> ts = getFacade().findAll();
-         int i=0;
-         for(Training t:ts){
-             t.setTrainingCategory(TrainingCategory.Scheduled_Training);
-             t.setCompleted(Boolean.FALSE);
-             getFacade().edit(t);
-             i++;
-             System.out.println("t = " + t);
-         }
-     }
-    
-    public String searchSchedules(){
+    List<MonthlyTrainings> selectedMonthlyTrainings;
+
+    public void makeAllTrainingsSchedulesSchedules() {
+        List<Training> ts = getFacade().findAll();
+        int i = 0;
+        for (Training t : ts) {
+            t.setTrainingCategory(TrainingCategory.Scheduled_Training);
+            t.setCompleted(Boolean.FALSE);
+            getFacade().edit(t);
+            i++;
+            System.out.println("t = " + t);
+        }
+    }
+
+    public String searchSchedules() {
+        selectedItems = searchSchedules(from, to);
+        return "";
+    }
+
+    public List<Training> searchSchedules(Date fromDate, Date toDate) {
         String j = "Select t from Training t "
                 + " where t.startDate between :fd and :td "
                 + " and t.trainingCategory= :tc ";
         Map m = new HashMap();
-        m.put("fd", from);
-        m.put("td", to);
+        m.put("fd", fromDate);
+        m.put("td", toDate);
         m.put("tc", TrainingCategory.Scheduled_Training);
-        if(department != null){
-            j+= " and t.department=:dept";
+        if (department != null) {
+            j += " and t.department=:dept";
             m.put("dept", department);
         }
-        j+= " order by t.startDate";
-        selectedItems = getFacade().findBySQL(j, m);
-        return "";
+        j += " order by t.startDate";
+        return getFacade().findBySQL(j, m);
+    }
+
+    public String searchAndPrintSchedules() {
+        int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
+        System.out.println("monthsInBetween = " + monthsInBetween);
+        selectedMonthlyTrainings = new ArrayList<MonthlyTrainings>();
+        for(int i = 0; i < monthsInBetween;i++){
+            MonthlyTrainings mt = new MonthlyTrainings();
+            Calendar fc = Calendar.getInstance();
+            fc.setTime(from);
+            fc.add(Calendar.MONTH, i);
+            mt.setMonthDate(fc.getTime());
+            mt.setTrainings(searchSchedules(JsfUtil.firstDayOfMonth(fc.getTime()),JsfUtil.lastDayOfMonth(fc.getTime())));
+            System.out.println("fc = " + fc);
+            System.out.println("mt = " + mt);
+            selectedMonthlyTrainings.add(mt);
+        }
+        return "/training/print_schedules";
     }
 
     public Department getDepartment() {
@@ -76,7 +102,7 @@ public class TrainingController implements Serializable {
     }
 
     public Date getFrom() {
-        if(from ==null) {
+        if (from == null) {
             from = JsfUtil.firstDayOfYear(new Date());
         }
         return from;
@@ -87,7 +113,7 @@ public class TrainingController implements Serializable {
     }
 
     public Date getTo() {
-        if(to==null){
+        if (to == null) {
             to = JsfUtil.lastDayOfYear(new Date());
         }
         return to;
@@ -97,6 +123,16 @@ public class TrainingController implements Serializable {
         this.to = to;
     }
 
+    public List<MonthlyTrainings> getSelectedMonthlyTrainings() {
+        return selectedMonthlyTrainings;
+    }
+
+    public void setSelectedMonthlyTrainings(List<MonthlyTrainings> selectedMonthlyTrainings) {
+        this.selectedMonthlyTrainings = selectedMonthlyTrainings;
+    }
+
+    
+    
     public List<Training> getSelectedItems() {
         return selectedItems;
     }
@@ -105,8 +141,6 @@ public class TrainingController implements Serializable {
         this.selectedItems = selectedItems;
     }
 
-    
-    
     public TrainingController() {
     }
 
@@ -141,8 +175,6 @@ public class TrainingController implements Serializable {
         }
     }
 
-    
-    
     public void createSchedule() {
         selected.setTrainingCategory(TrainingCategory.Scheduled_Training);
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TrainingCreated"));
@@ -150,7 +182,7 @@ public class TrainingController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("TrainingUpdated"));
     }

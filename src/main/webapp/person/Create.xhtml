@@ -20,20 +20,26 @@
                         <p:selectOneMenu id="institute" value="#{personController.selected.institute}" >
                             <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
                                            var="instituteItem"
-                                           itemValue="#{instituteItem}"/>
+                                           itemValue="#{instituteItem}"
+                                           itemLabel="#{instituteItem.name}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_department}" for="department" />
                         <p:selectOneMenu id="department" value="#{personController.selected.department}" >
                             <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
                                            var="departmentItem"
-                                           itemValue="#{departmentItem}"/>
+                                           itemValue="#{departmentItem}"
+                                           itemLabel="#{departmentItem.name}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_phone}" for="phone" />
                         <p:inputText id="phone" value="#{personController.selected.phone}" title="#{bundle.CreatePersonTitle_phone}" />
                         <p:outputLabel value="#{bundle.CreatePersonLabel_email}" for="email" />
                         <p:inputText id="email" value="#{personController.selected.email}" title="#{bundle.CreatePersonTitle_email}" />
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{personController.selected.id}" title="#{bundle.CreatePersonTitle_id}" />
+
+                        <p:outputLabel value="Position" />
+                        <p:autoComplete value="#{personController.selected.designation}"
+                                        completeMethod="#{itemController.completeDesignations}"
+                                        var="d" itemLabel="#{d.name}" itemValue="#{d}">
+                        </p:autoComplete>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonCreateDialog.hide()"/>

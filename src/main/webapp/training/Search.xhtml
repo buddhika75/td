@@ -14,7 +14,7 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="TrainingListForm">
+            <h:form id="TrainingListForm"  target="_blank">
 
                 <p:panelGrid columns="8" >
                     <p:outputLabel value="Department" ></p:outputLabel>
@@ -36,7 +36,7 @@
                     <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd"></p:calendar>
 
                     <p:commandButton value="Search" action="#{trainingController.searchSchedules()}" ajax="false" ></p:commandButton>
-                    
+                    <p:commandButton value="To Print" action="#{trainingController.searchAndPrintSchedules()}" ajax="false" ></p:commandButton>
                     
                 </p:panelGrid>
 

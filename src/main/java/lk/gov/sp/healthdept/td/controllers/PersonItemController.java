@@ -6,7 +6,10 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 import lk.gov.sp.healthdept.td.facades.PersonItemFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +21,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import lk.gov.sp.healthdept.td.entity.Item;
+import lk.gov.sp.healthdept.td.entity.ItemCategory;
+import lk.gov.sp.healthdept.td.entity.Person;
 
 @Named("personItemController")
 @SessionScoped
@@ -27,6 +33,90 @@ public class PersonItemController implements Serializable {
     private lk.gov.sp.healthdept.td.facades.PersonItemFacade ejbFacade;
     private List<PersonItem> items = null;
     private PersonItem selected;
+    
+    Person selectedPerson;
+    List<PersonItem> selectedPersonTrainingRequirements;
+    Item selectedTrainingRequirement;
+    PersonItem selectedPersonTrainingRequirement;
+    
+    public void fillSelectedPersonTrainingRequirements(){
+        selectedPersonTrainingRequirements = new ArrayList<PersonItem>();
+        if(selectedPerson==null){
+            return;
+        }
+        String j;
+        j="select pi "
+                + " from PersonItem pi "
+                + " where pi.person=:p "
+                + " and pi.item.itemCategory=:ic";
+        Map m = new HashMap();
+        m.put("p", selectedPerson);
+        m.put("ic", ItemCategory.Training_Requirement);
+        selectedPersonTrainingRequirements = getFacade().findBySQL(j, m);
+    }
+    
+    public void addPersonTrainingRequirement(){
+        if(selectedPerson==null){
+            JsfUtil.addErrorMessage("Person?");
+            return;
+        }
+        if(selectedTrainingRequirement==null){
+            JsfUtil.addErrorMessage("Requirement");
+            return;
+        }
+        PersonItem pi = new PersonItem();
+        pi.setItem(selectedTrainingRequirement);
+        pi.setPerson(selectedPerson);
+        getFacade().create(pi);
+        fillSelectedPersonTrainingRequirements();
+        selectedTrainingRequirement = null;
+    }
+    
+    public void removePersonTrainingRequirement(){
+        if(selectedPersonTrainingRequirement==null){
+            JsfUtil.addErrorMessage("Select");
+            return;
+        }
+        getFacade().remove(selectedPersonTrainingRequirement);
+        fillSelectedPersonTrainingRequirements();
+    }
+
+    public Item getSelectedTrainingRequirement() {
+        return selectedTrainingRequirement;
+    }
+
+    public void setSelectedTrainingRequirement(Item selectedTrainingRequirement) {
+        this.selectedTrainingRequirement = selectedTrainingRequirement;
+    }
+
+    public PersonItem getSelectedPersonTrainingRequirement() {
+        return selectedPersonTrainingRequirement;
+    }
+
+    public void setSelectedPersonTrainingRequirement(PersonItem selectedPersonTrainingRequirement) {
+        this.selectedPersonTrainingRequirement = selectedPersonTrainingRequirement;
+    }
+    
+    
+    
+    public Person getSelectedPerson() {
+        return selectedPerson;
+    }
+
+    public void setSelectedPerson(Person selectedPerson) {
+        this.selectedPerson = selectedPerson;
+    }
+
+    public List<PersonItem> getSelectedPersonTrainingRequirements() {
+        return selectedPersonTrainingRequirements;
+    }
+
+    public void setSelectedPersonTrainingRequirements(List<PersonItem> selectedPersonTrainingRequirements) {
+        this.selectedPersonTrainingRequirements = selectedPersonTrainingRequirements;
+    }
+    
+    
+    
 
     public PersonItemController() {
     }

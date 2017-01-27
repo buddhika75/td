@@ -11,6 +11,36 @@ import javax.faces.model.SelectItem;
 
 public class JsfUtil {
 
+    public static int monthsInBetweenTwoDays(Date fromDate, Date toDate) {
+        Calendar startCalendar = Calendar.getInstance();
+        startCalendar.setTime(fromDate);
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(toDate);
+        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+        return diffMonth;
+    }
+
+    public static Date firstDayOfMonth(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.MILLISECOND, 1);
+        return c.getTime();
+    }
+    
+    public static Date lastDayOfMonth(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+        c.set(Calendar.HOUR_OF_DAY, c.getActualMaximum(Calendar.HOUR_OF_DAY));
+        c.set(Calendar.MINUTE, c.getActualMaximum(Calendar.MINUTE));
+        c.set(Calendar.MILLISECOND, c.getActualMaximum(Calendar.MILLISECOND));
+        return c.getTime();
+    }
+
     public static Date firstDayOfYear(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);

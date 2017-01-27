@@ -4,7 +4,9 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,19 @@ public class PersonController implements Serializable {
     private lk.gov.sp.healthdept.td.facades.PersonFacade ejbFacade;
     private List<Person> items = null;
     private Person selected;
+    
+    
+    public List<Person> completePersons(String qry){
+        String j ;
+        Map m = new HashMap();
+        j = "Select p "
+                + " from Person p "
+                + " where "
+                + " (upper(p.name) like :n or p.nic like :n or p.phone like :n) "
+                + " order by p.name";
+        m.put("n", "%" + qry.trim().toUpperCase() + "%" );
+        return getFacade().findBySQL(j, m);
+    }
 
     public PersonController() {
     }

@@ -40,6 +40,14 @@ public class ItemController implements Serializable {
         return getFacade().findBySQL(j, m);
     }
     
+    public List<Item> completeTrainingRequirements(String qry){
+        String j;
+        Map m = new HashMap();
+        j="select i from Item i where i.itemCategory=:c order by i.name";
+        m.put("c", ItemCategory.Training_Requirement);
+        return getFacade().findBySQL(j, m);
+    }
+    
     public ItemController() {
     }
 

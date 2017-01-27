@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+
+            <ui:define name="body">
+
+                <h:form>
+
+                    <p:panel >
+                        <f:facet name="header" >
+                            <p:outputLabel value="Person Training Requirements" ></p:outputLabel>
+                        </f:facet>
+                        <p:panelGrid columns="2" >
+                            <p:outputLabel value="Person" ></p:outputLabel>
+                            <p:autoComplete id="cmbPerson" value="#{personItemController.selectedPerson}"
+                                            completeMethod="#{personController.completePersons}"
+                                            var="p" 
+                                            itemLabel="#{p.name}"
+                                            itemValue="#{p}">
+                                <p:ajax event="itemSelect" listener="#{personItemController.fillSelectedPersonTrainingRequirements()}" process="cmbPerson" update="tbl" ></p:ajax>
+                            </p:autoComplete>
+                        </p:panelGrid>
+                        <p:panelGrid columns="3" >
+                            <p:outputLabel value="Requirement" ></p:outputLabel>
+                            <p:autoComplete value="#{personItemController.selectedTrainingRequirement}"
+                                            completeMethod="#{itemController.completeTrainingRequirements}"
+                                            var="r"
+                                            itemLabel="#{r.name}"
+                                            itemValue="#{r}"></p:autoComplete>
+                            <p:commandButton ajax="false" value="Add" action="#{personItemController.addPersonTrainingRequirement()}" ></p:commandButton>
+                        </p:panelGrid>
+                        <p:dataTable id="tbl" value="#{personItemController.selectedPersonTrainingRequirements}"
+                                     var="r" >
+
+                            <p:column >
+                                <f:facet name="header" >
+                                    <p:outputLabel value="Requirement" ></p:outputLabel>
+                                </f:facet>
+                                <p:outputLabel value="#{r.item.name}" ></p:outputLabel>
+                            </p:column>
+                            
+                            <p:column >
+                                <f:facet name="header" >
+                                    <p:outputLabel value="Actions" ></p:outputLabel>
+                                </f:facet>
+                                <p:commandButton ajax="false" value="Remove" action="#{personItemController.removePersonTrainingRequirement()}" >
+                                    <f:setPropertyActionListener target="#{personItemController.selectedPersonTrainingRequirement }" value="#{r}" ></f:setPropertyActionListener>
+                                </p:commandButton>
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </p:panel>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
