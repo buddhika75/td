@@ -79,15 +79,27 @@ public class TrainingController implements Serializable {
         int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
         System.out.println("monthsInBetween = " + monthsInBetween);
         selectedMonthlyTrainings = new ArrayList<MonthlyTrainings>();
-        for(int i = 0; i < monthsInBetween;i++){
+        for(int i = 0; i < (monthsInBetween+1);i++){
             MonthlyTrainings mt = new MonthlyTrainings();
             Calendar fc = Calendar.getInstance();
             fc.setTime(from);
             fc.add(Calendar.MONTH, i);
-            mt.setMonthDate(fc.getTime());
-            mt.setTrainings(searchSchedules(JsfUtil.firstDayOfMonth(fc.getTime()),JsfUtil.lastDayOfMonth(fc.getTime())));
+            
+            
+            Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
+            System.out.println("fromDate = " + fromDate);
+            Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
+            System.out.println("toDate = " + toDate);
+            mt.setTrainings(searchSchedules(fromDate,toDate));
             System.out.println("fc = " + fc);
             System.out.println("mt = " + mt);
+            
+            fc.setTime(fromDate);
+            fc.add(Calendar.DATE, 5);
+            
+            System.out.println("fromDate = " + fromDate);
+            
+            mt.setMonthDate(fromDate);
             selectedMonthlyTrainings.add(mt);
         }
         return "/training/print_schedules";

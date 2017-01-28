@@ -9,14 +9,11 @@
     <ui:composition template="/template.xhtml">
 
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListTrainingTitle}"></h:outputText>
-        </ui:define>
 
         <ui:define name="body">
-            <h:form id="TrainingListForm"  target="_blank">
+            <h:form id="TrainingListForm" >
 
-                <p:panelGrid columns="8" >
+                <p:panelGrid columns="10" >
                     <p:outputLabel value="Department" ></p:outputLabel>
                     <p:autoComplete value="#{trainingController.department}"
                                     var="d"
@@ -28,16 +25,17 @@
                     </p:spacer>
 
                     <p:outputLabel value="From" ></p:outputLabel>
-                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd"></p:calendar>
+                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd" timeZone="ist" navigator="true"></p:calendar>
                     <p:spacer height="1" width="10" >
                     </p:spacer>
 
                     <p:outputLabel value="To" ></p:outputLabel>
-                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd"></p:calendar>
+                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" navigator="true"></p:calendar>
 
                     <p:commandButton value="Search" action="#{trainingController.searchSchedules()}" ajax="false" ></p:commandButton>
-                    <p:commandButton value="To Print" action="#{trainingController.searchAndPrintSchedules()}" ajax="false" ></p:commandButton>
-                    
+                    <p:commandButton value="Download as Excel"  ajax="false" style="float: right;" >
+                        <p:dataExporter type="xls" target=":#{p:component('datalist')}" fileName="trainings" />
+                    </p:commandButton>
                 </p:panelGrid>
 
                 <p:panel header="#{bundle.ListTrainingTitle}">
@@ -48,16 +46,15 @@
                         <p:outputLabel value="#{trainingController.department.name}" rendered="#{trainingController.department ne null}" ></p:outputLabel>
                         <p:outputLabel value="From : " ></p:outputLabel>
                         <p:outputLabel value="#{trainingController.from}" >
-                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                            <f:convertDateTime pattern="yyyy MMMM dd" timeZone="ist" ></f:convertDateTime>
                         </p:outputLabel>
                         <p:outputLabel value=", To : " ></p:outputLabel>
                         <p:outputLabel value="#{trainingController.from}" >
-                            <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                            <f:convertDateTime pattern="yyyy MMMM dd" ></f:convertDateTime>
                         </p:outputLabel>
-                        <p:commandButton value="Download as Excel"  ajax="false" style="float: right;" >
-                            <p:dataExporter type="xls" target="datalist" fileName="trainings" />
-                        </p:commandButton>
+
                     </f:facet>
+
 
 
                     <p:dataTable id="datalist" value="#{trainingController.selectedItems}" var="item"
@@ -68,8 +65,6 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column width="10" >
                             <f:facet name="header">
@@ -162,21 +157,16 @@
                             </f:facet>
                             <h:outputText value="#{item.numberLong}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{trainingController.prepareCreate}" update=":TrainingCreateForm" oncomplete="PF('TrainingCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TrainingViewForm" oncomplete="PF('TrainingViewDialog').show()" disabled="#{empty trainingController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TrainingEditForm" oncomplete="PF('TrainingEditDialog').show()" disabled="#{empty trainingController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{trainingController.destroy}" update=":growl,datalist" disabled="#{empty trainingController.selected}"/>
-                        </f:facet>
+                        <p:column width="20">
+                            <f:facet name="header">
+                                <h:outputText value="Actions"/>
+                            </f:facet>
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
+
+
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-
-
 
 
         </ui:define>

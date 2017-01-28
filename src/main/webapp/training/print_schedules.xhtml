@@ -38,20 +38,20 @@
                         <th colspan="2">
                             <p:outputLabel value="Month : " ></p:outputLabel>
                             <p:outputLabel value="#{mts.monthDate}" >
-                                <f:convertDateTime pattern="MMMM" ></f:convertDateTime>
+                                <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
                             </p:outputLabel>
                         </th>
                     </tr>
-                    <h:panelGroup rendered="#{not empty mts.trainings}">
+                    <h:panelGroup rendered="#{empty mts.trainings}">
                         <tr>
                             <td colspan="2">
                                 <p:spacer height="1"  width="10" ></p:spacer>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <p:outputLabel value="No Training Scheduled" ></p:outputLabel>
-                            </td>
+                            <th colspan="2">
+                                <p:outputLabel value="No Trainings Scheduled" ></p:outputLabel>
+                            </th>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -66,10 +66,117 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
+                            <th colspan="2">
                                 <p:outputLabel value="#{t.name}" ></p:outputLabel>
+                            </th>
+                        </tr>
+
+
+                        <tr>
+                            <td  >
+                                <h:outputLabel value="මාසය" ></h:outputLabel>
+                            </td>
+                            <td >
+                                <h:outputText value="#{t.startDate}" >
+                                    <f:convertDateTime pattern="MMMM yyyy" ></f:convertDateTime>
+                                </h:outputText>
                             </td>
                         </tr>
+                        <tr>
+                            <td  >
+                                <h:outputLabel value="අංකය" ></h:outputLabel>
+                            </td>
+                            <td >
+                                <h:outputText value="#{t.numberStr}" >
+                                </h:outputText>
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <h:outputLabel value="අංශය" ></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:outputLabel value="#{t.department.name}" >
+                                </h:outputLabel>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="අරමුණ" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.objectives}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="අන්තර්ගතය" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.contents}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="ක්‍රමවේදය" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.methodology}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="මෙහෙයවීම"></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.conductedBy}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="සහභාගීවන අය" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.participants}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="දින ගණන" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.numberOfDays }"></h:outputLabel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h:outputLabel value="සහභාගීවන සංඛ්‍යාව" ></h:outputLabel>
+                            </td>
+
+                            <td>
+                                <h:outputLabel value="#{t.numberLong}"></h:outputLabel>
+                            </td>
+                        </tr>
+
+
+
+
                         <tr>
                             <td colspan="2">
                                 <p:spacer height="1"  width="10" ></p:spacer>

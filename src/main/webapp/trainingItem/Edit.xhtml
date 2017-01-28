@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TrainingItemEditDlg" widgetVar="TrainingItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle2.EditTrainingItemTitle}">
+            <h:form id="TrainingItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{trainingItemController.selected != null}">
+                        <p:outputLabel value="#{bundle2.EditTrainingItemLabel_training}" for="training" />
+                        <p:selectOneMenu id="training" value="#{trainingItemController.selected.training}" >
+                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                            <f:selectItems value="#{trainingController.itemsAvailableSelectOne}"
+                                           var="trainingItem"
+                                           itemValue="#{trainingItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle2.EditTrainingItemLabel_item}" for="item" />
+                        <p:selectOneMenu id="item" value="#{trainingItemController.selected.item}" >
+                            <f:selectItem itemLabel="#{bundle2.SelectOneMessage}"/>
+                            <f:selectItems value="#{itemController.itemsAvailableSelectOne}"
+                                           var="itemItem"
+                                           itemValue="#{itemItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle2.EditTrainingItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{trainingItemController.selected.id}" title="#{bundle2.EditTrainingItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{trainingItemController.update}" value="#{bundle2.Save}" update="display,:TrainingItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingItemEditDialog');"/>
+                    <p:commandButton value="#{bundle2.Cancel}" onclick="TrainingItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

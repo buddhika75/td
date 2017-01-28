@@ -3,6 +3,7 @@ package lk.gov.sp.healthdept.td.controllers.util;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,7 +23,7 @@ public class JsfUtil {
     }
 
     public static Date firstDayOfMonth(Date date) {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         c.setTime(date);
         c.set(Calendar.DAY_OF_MONTH, 1);
         c.set(Calendar.HOUR_OF_DAY, 0);
@@ -30,9 +31,9 @@ public class JsfUtil {
         c.set(Calendar.MILLISECOND, 1);
         return c.getTime();
     }
-    
+
     public static Date lastDayOfMonth(Date date) {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         c.setTime(date);
         c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
         c.set(Calendar.HOUR_OF_DAY, c.getActualMaximum(Calendar.HOUR_OF_DAY));
@@ -42,17 +43,17 @@ public class JsfUtil {
     }
 
     public static Date firstDayOfYear(Date date) {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         c.setTime(date);
-        c.set(Calendar.DAY_OF_YEAR, 1);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.MILLISECOND, 1);
+        c.set(Calendar.DAY_OF_YEAR, c.getActualMinimum(Calendar.DAY_OF_YEAR));
+        c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
+        c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
+        c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
         return c.getTime();
     }
 
     public static Date lastDayOfYear(Date date) {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("IST"));
         c.setTime(date);
         c.set(Calendar.DAY_OF_MONTH, 31);
         c.set(Calendar.MONTH, Calendar.DECEMBER);

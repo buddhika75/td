@@ -19,35 +19,35 @@ import javax.persistence.ManyToOne;
  * @author pdhs-sp
  */
 @Entity
-public class PersonItem implements Serializable {
+public class TrainingItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    Person person;
+    Training training;
     @ManyToOne
     Item item;
     @Enumerated(EnumType.STRING)
-    PersonItemCategory category;
+    TrainingItemCategory category;
 
-    public PersonItemCategory getCategory() {
+    public TrainingItemCategory getCategory() {
         return category;
     }
 
-    public void setCategory(PersonItemCategory category) {
+    public void setCategory(TrainingItemCategory category) {
         this.category = category;
     }
-
     
     
-    public Person getPerson() {
-        return person;
+    
+    public Training getTraining() {
+        return training;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 
     public Item getItem() {
@@ -78,10 +78,10 @@ public class PersonItem implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PersonItem)) {
+        if (!(object instanceof TrainingItem)) {
             return false;
         }
-        PersonItem other = (PersonItem) object;
+        TrainingItem other = (TrainingItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +90,7 @@ public class PersonItem implements Serializable {
 
     @Override
     public String toString() {
-        return "lk.gov.sp.healthdept.td.entity.PersonItem[ id=" + id + " ]";
+        return "lk.gov.sp.healthdept.td.entity.TrainingItem[ id=" + id + " ]";
     }
     
 }

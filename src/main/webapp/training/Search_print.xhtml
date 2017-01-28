@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTrainingTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="TrainingListForm"  target="_blank">
+
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Department" ></p:outputLabel>
+                    <p:autoComplete value="#{trainingController.department}"
+                                    var="d"
+                                    itemLabel="#{d.name}"
+                                    itemValue="#{d}"
+                                    completeMethod="#{departmentController.completeDepartments}" >
+                    </p:autoComplete>
+
+                    <p:outputLabel value="From" ></p:outputLabel>
+                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd" timeZone="ist" navigator="true"></p:calendar>
+
+                    <p:outputLabel value="To" ></p:outputLabel>
+                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" navigator="true"></p:calendar>
+
+                    <p:spacer ></p:spacer>
+                    <p:commandButton value="To Print" action="#{trainingController.searchAndPrintSchedules()}" ajax="false" ></p:commandButton>
+                    
+                </p:panelGrid>
+
+            </h:form>
+
+
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -24,6 +24,7 @@ import javax.faces.convert.FacesConverter;
 import lk.gov.sp.healthdept.td.entity.Item;
 import lk.gov.sp.healthdept.td.entity.ItemCategory;
 import lk.gov.sp.healthdept.td.entity.Person;
+import lk.gov.sp.healthdept.td.entity.PersonItemCategory;
 
 @Named("personItemController")
 @SessionScoped
@@ -48,10 +49,10 @@ public class PersonItemController implements Serializable {
         j="select pi "
                 + " from PersonItem pi "
                 + " where pi.person=:p "
-                + " and pi.item.itemCategory=:ic";
+                + " and pi.category=:ic";
         Map m = new HashMap();
         m.put("p", selectedPerson);
-        m.put("ic", ItemCategory.Training_Requirement);
+        m.put("ic", PersonItemCategory.Training_Requirement_Self);
         selectedPersonTrainingRequirements = getFacade().findBySQL(j, m);
     }
     
@@ -67,6 +68,7 @@ public class PersonItemController implements Serializable {
         PersonItem pi = new PersonItem();
         pi.setItem(selectedTrainingRequirement);
         pi.setPerson(selectedPerson);
+        pi.setCategory(PersonItemCategory.Training_Requirement_Self);
         getFacade().create(pi);
         fillSelectedPersonTrainingRequirements();
         selectedTrainingRequirement = null;

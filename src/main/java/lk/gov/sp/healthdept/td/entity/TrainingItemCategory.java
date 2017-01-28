@@ -9,10 +9,6 @@ package lk.gov.sp.healthdept.td.entity;
  *
  * @author pdhs-sp
  */
-public enum PersonItemCategory {
-    Training_Requirement_Self,
-    Training_Requirement_Supervisor,
-    Training_Completed,
-    Training_Provided_But_Not_Completed_Informed,
-    Training_Provided_But_Not_Completed_Not_Informed,
+public enum TrainingItemCategory {
+    Training_Keyword,
 }
