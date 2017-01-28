@@ -9,8 +9,10 @@
         <title>Training Schedules</title>
     </h:head>
     <h:body>
+        <h:outputStylesheet library="css" name="tables.css" ></h:outputStylesheet>
         <h:outputStylesheet library="css" name="td.css" ></h:outputStylesheet>
         <h:form >
+
 
             <p:commandButton onclick="window.print();" value="Print" styleClass="no-print" ></p:commandButton>
 
@@ -20,7 +22,7 @@
 
                 <p:outputLabel rendered="#{trainingController.department ne null}" value=" #{trainingController.department.name}" ></p:outputLabel>
             </h2>
-            <h3>
+            <h2>
                 <p:outputLabel value="From : " ></p:outputLabel>
                 <p:outputLabel value="#{trainingController.from}" >
                     <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
@@ -29,161 +31,148 @@
                 <p:outputLabel value="#{trainingController.to}" >
                     <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
                 </p:outputLabel>
-            </h3>
+            </h2>
 
 
             <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
-                <table style="width: 98%;" >
-                    <tr>
-                        <th colspan="2">
-                            <p:outputLabel value="Month : " ></p:outputLabel>
-                            <p:outputLabel value="#{mts.monthDate}" >
-                                <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
-                            </p:outputLabel>
-                        </th>
-                    </tr>
-                    <h:panelGroup rendered="#{empty mts.trainings}">
-                        <tr>
-                            <td colspan="2">
-                                <p:spacer height="1"  width="10" ></p:spacer>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">
-                                <p:outputLabel value="No Trainings Scheduled" ></p:outputLabel>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <p:spacer height="1"  width="10" ></p:spacer>
-                            </td>
-                        </tr>
-                    </h:panelGroup>
-                    <ui:repeat value="#{mts.trainings}" var="t" rendered="#{not empty mts.trainings}" >
-                        <tr>
-                            <td colspan="2">
-                                <p:spacer height="1"  width="10" ></p:spacer>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">
-                                <p:outputLabel value="#{t.name}" ></p:outputLabel>
-                            </th>
-                        </tr>
+                <h3>
+                    <p:outputLabel value="Month : " ></p:outputLabel>
+                    <p:outputLabel value="#{mts.monthDate}" >
+                        <f:convertDateTime pattern="MMMM" ></f:convertDateTime>
+                    </p:outputLabel>
+                </h3>
+                <h:panelGroup rendered="#{empty mts.trainings}">
+                    <h3>
+                        <p:outputLabel value="No Trainings Scheduled" ></p:outputLabel>
+                    </h3>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{not empty mts.trainings}">
+
+                    <ui:repeat value="#{mts.trainings}" var="t"  >
+                        <table style="width: 98%; border: 1px solid;padding: 5px; margin: 1px;" class="pure-table-bordered pure-table-striped" >
+                            <thead >
+                                <tr>
+                                    <th colspan="2">
+                                        <p:outputLabel value="#{t.name}" ></p:outputLabel>
+                                    </th>
+                                </tr>
+                            </thead>
 
 
-                        <tr>
-                            <td  >
-                                <h:outputLabel value="මාසය" ></h:outputLabel>
-                            </td>
-                            <td >
-                                <h:outputText value="#{t.startDate}" >
-                                    <f:convertDateTime pattern="MMMM yyyy" ></f:convertDateTime>
-                                </h:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td  >
-                                <h:outputLabel value="අංකය" ></h:outputLabel>
-                            </td>
-                            <td >
-                                <h:outputText value="#{t.numberStr}" >
-                                </h:outputText>
-                            </td>
-                        </tr>
+                            <tbody >
+                                <tr>
+                                    <td  >
+                                        <h:outputLabel value="මාසය" ></h:outputLabel>
+                                    </td>
+                                    <td >
+                                        <h:outputText value="#{t.startDate}" >
+                                            <f:convertDateTime pattern="MMMM yyyy" ></f:convertDateTime>
+                                        </h:outputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  >
+                                        <h:outputLabel value="අංකය" ></h:outputLabel>
+                                    </td>
+                                    <td >
+                                        <h:outputText value="#{t.numberStr}" >
+                                        </h:outputText>
+                                    </td>
+                                </tr>
 
-                        <tr>
+                                <tr>
 
-                            <td>
-                                <h:outputLabel value="අංශය" ></h:outputLabel>
-                            </td>
-                            <td>
-                                <h:outputLabel value="#{t.department.name}" >
-                                </h:outputLabel>
-                            </td>
+                                    <td>
+                                        <h:outputLabel value="අංශය" ></h:outputLabel>
+                                    </td>
+                                    <td>
+                                        <h:outputLabel value="#{t.department.name}" >
+                                        </h:outputLabel>
+                                    </td>
 
-                        </tr>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="අරමුණ" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="අරමුණ" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.objectives}"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.objectives}"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="අන්තර්ගතය" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="අන්තර්ගතය" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.contents}"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.contents}"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="ක්‍රමවේදය" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="ක්‍රමවේදය" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.methodology}"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.methodology}"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="මෙහෙයවීම"></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="මෙහෙයවීම"></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.conductedBy}"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.conductedBy}"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="සහභාගීවන අය" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="සහභාගීවන අය" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.participants}"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.participants}"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="දින ගණන" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="දින ගණන" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.numberOfDays }"></h:outputLabel>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.numberOfDays }"></h:outputLabel>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <h:outputLabel value="සහභාගීවන සංඛ්‍යාව" ></h:outputLabel>
-                            </td>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="සහභාගීවන සංඛ්‍යාව" ></h:outputLabel>
+                                    </td>
 
-                            <td>
-                                <h:outputLabel value="#{t.numberLong}"></h:outputLabel>
-                            </td>
-                        </tr>
-
-
-
-
-                        <tr>
-                            <td colspan="2">
-                                <p:spacer height="1"  width="10" ></p:spacer>
-                            </td>
-                        </tr>
+                                    <td>
+                                        <h:outputLabel value="#{t.numberLong}"></h:outputLabel>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
                     </ui:repeat>
-                </table>
+
+                </h:panelGroup>
+
+
+
+                <br/>
+                <br/>
 
             </ui:repeat>
 

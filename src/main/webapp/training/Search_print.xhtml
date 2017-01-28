@@ -26,10 +26,10 @@
                     </p:autoComplete>
 
                     <p:outputLabel value="From" ></p:outputLabel>
-                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd" timeZone="ist" navigator="true"></p:calendar>
+                    <p:calendar value="#{trainingController.from}" pattern="yyyy MMMM dd" timeZone="Asia/Colombo" navigator="true"></p:calendar>
 
                     <p:outputLabel value="To" ></p:outputLabel>
-                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" navigator="true"></p:calendar>
+                    <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" timeZone="Asia/Colombo" navigator="true"></p:calendar>
 
                     <p:spacer ></p:spacer>
                     <p:commandButton value="To Print" action="#{trainingController.searchAndPrintSchedules()}" ajax="false" ></p:commandButton>

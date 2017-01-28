@@ -49,7 +49,7 @@
                         <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
 
                         <p:outputLabel value="Start Date" for="startDate" />
-                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
+                        <p:calendar id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}" timeZone="Asia/Colombo"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
                         <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
                         <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />

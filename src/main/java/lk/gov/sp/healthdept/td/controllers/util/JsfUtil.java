@@ -49,6 +49,8 @@ public class JsfUtil {
         c.set(Calendar.HOUR_OF_DAY, c.getActualMinimum(Calendar.HOUR_OF_DAY));
         c.set(Calendar.MINUTE, c.getActualMinimum(Calendar.MINUTE));
         c.set(Calendar.MILLISECOND, c.getActualMinimum(Calendar.MILLISECOND));
+        System.out.println("c = " + c);
+        System.out.println("c.getTime() = " + c.getTime());
         return c.getTime();
     }
 

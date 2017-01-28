@@ -21,11 +21,11 @@
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_sessionNo}" for="sessionNo" />
                         <p:inputText id="sessionNo" value="#{trainingSessionController.selected.sessionNo}" title="#{bundle.CreateTrainingSessionTitle_sessionNo}" />
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_trainingDate}" for="trainingDate" />
-                        <p:calendar id="trainingDate" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingDate}" title="#{bundle.EditTrainingSessionTitle_trainingDate}"  showOn="button"/>
+                        <p:calendar timeZone="Asia/Colombo" id="trainingDate" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingDate}" title="#{bundle.EditTrainingSessionTitle_trainingDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_trainingFrom}" for="trainingFrom" />
-                        <p:calendar id="trainingFrom" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingFrom}" title="#{bundle.EditTrainingSessionTitle_trainingFrom}"  showOn="button"/>
+                        <p:calendar timeZone="Asia/Colombo" id="trainingFrom" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingFrom}" title="#{bundle.EditTrainingSessionTitle_trainingFrom}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_trainingTo}" for="trainingTo" />
-                        <p:calendar id="trainingTo" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingTo}" title="#{bundle.EditTrainingSessionTitle_trainingTo}"  showOn="button"/>
+                        <p:calendar timeZone="Asia/Colombo" id="trainingTo" pattern="MM/dd/yyyy" value="#{trainingSessionController.selected.trainingTo}" title="#{bundle.EditTrainingSessionTitle_trainingTo}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_expectedCount}" for="expectedCount" />
                         <p:inputText id="expectedCount" value="#{trainingSessionController.selected.expectedCount}" title="#{bundle.CreateTrainingSessionTitle_expectedCount}" />
                         <p:outputLabel value="#{bundle.CreateTrainingSessionLabel_participantCount}" for="participantCount" />
