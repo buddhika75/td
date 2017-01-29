@@ -25,9 +25,16 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import lk.gov.sp.healthdept.td.entity.Department;
 import lk.gov.sp.healthdept.td.entity.MonthlyTrainings;
+import lk.gov.sp.healthdept.td.entity.Person;
+import lk.gov.sp.healthdept.td.entity.PersonTraining;
+import lk.gov.sp.healthdept.td.entity.PersonTrainingCategory;
 import lk.gov.sp.healthdept.td.entity.Training;
 import lk.gov.sp.healthdept.td.entity.TrainingCategory;
+import lk.gov.sp.healthdept.td.entity.TrainingFeedback;
+import lk.gov.sp.healthdept.td.entity.TrainingSession;
+import lk.gov.sp.healthdept.td.facades.PersonTrainingFacade;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
+import lk.gov.sp.healthdept.td.facades.TrainingFeedbackFacade;
 import org.apache.commons.beanutils.BeanUtils;
 
 @Named("trainingController")
@@ -36,6 +43,10 @@ public class TrainingController implements Serializable {
 
     @EJB
     private lk.gov.sp.healthdept.td.facades.TrainingFacade ejbFacade;
+    @EJB
+    TrainingFeedbackFacade trainingFeedbackFacade;
+    @EJB
+    PersonTrainingFacade personTrainingFacade;
     private List<Training> items = null;
     private Training selected;
     private Training selectedScheduled;
@@ -45,22 +56,248 @@ public class TrainingController implements Serializable {
     Date to;
     private List<Training> selectedItems = null;
     List<MonthlyTrainings> selectedMonthlyTrainings;
+    List<PersonTraining> presentTrainees;
+    List<PersonTraining> absentTrainees;
+    PersonTraining selectedPersonTraining;
+    PersonTraining removingPersonTraining;
+    Person presentTrainee;
+    Person absentTrainee;
+    TrainingFeedback selectedFeedback;
+    TrainingFeedback removingFeedback;
+    List<TrainingFeedback> selectedFeedbacks;
+    TrainingSession selectedTrainingSession;
+
+    public void fillFeedabcks() {
+        String j;
+        Map m = new HashMap();
+        j = "select tp "
+                + " from TrainingFeedback tp "
+                + " where tp.training=:t ";
+        m.put("t", selectedCompleted);
+        selectedFeedbacks = getTrainingFeedbackFacade().findBySQL(j, m);
+    }
+
+    public void fillPresentPersons() {
+        String j;
+        Map m = new HashMap();
+        j = "select tp "
+                + " from PersonTraining tp "
+                + " where tp.training=:t "
+                + " and tp.category=:c";
+        m.put("t", selectedCompleted);
+        m.put("c", PersonTrainingCategory.Training_Completed);
+        presentTrainees = getPersonTrainingFacade().findBySQL(j, m);
+    }
+
+    public void fillAbsentPersons() {
+        String j;
+        Map m = new HashMap();
+        j = "select tp "
+                + " from PersonTraining tp "
+                + " where tp.training=:t "
+                + " and tp.category=:c";
+        m.put("t", selectedCompleted);
+        m.put("c", PersonTrainingCategory.Absent_Not_Informed);
+        absentTrainees = getPersonTrainingFacade().findBySQL(j, m);
+    }
+
+    public void saveFeedback() {
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Please select a training");
+            return;
+        }
+        if (selectedFeedback == null) {
+            JsfUtil.addErrorMessage("Feedback?");
+            return;
+        }
+        getTrainingFeedbackFacade().edit(selectedFeedback);
+        selectedFeedback = null;
+        getSelectedFeedback();
+        fillFeedabcks();
+    }
+
+    public void addFeedback(){
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Please select a training");
+            return;
+        }
+        selectedFeedback = new TrainingFeedback();
+        selectedFeedback.setTraining(selectedCompleted);
+        getTrainingFeedbackFacade().create(selectedFeedback);
+    }
     
-    
-    public String makeSheculeTrainingComplete(){
-        if(selectedScheduled==null){
+    public void addPresentPerson() {
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Please select a training");
+            return;
+        }
+        if (presentTrainee == null) {
+            JsfUtil.addErrorMessage("Person?");
+            return;
+        }
+        PersonTraining pt = new PersonTraining();
+        pt.setCategory(PersonTrainingCategory.Training_Completed);
+        pt.setTraining(selectedCompleted);
+        pt.setPerson(presentTrainee);
+        getPersonTrainingFacade().create(pt);
+        presentTrainee = null;
+        fillPresentPersons();
+    }
+
+    public void addAbsentPerson() {
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Please select a training");
+            return;
+        }
+        if (absentTrainee == null) {
+            JsfUtil.addErrorMessage("Person?");
+            return;
+        }
+        PersonTraining pt = new PersonTraining();
+        pt.setCategory(PersonTrainingCategory.Absent_Not_Informed);
+        pt.setTraining(selectedCompleted);
+        pt.setPerson(absentTrainee);
+        getPersonTrainingFacade().create(pt);
+        absentTrainee = null;
+        fillAbsentPersons();
+    }
+
+    public void removeFeedback() {
+        if (removingFeedback == null) {
+            JsfUtil.addErrorMessage("Feedback");
+            return;
+        }
+        getTrainingFeedbackFacade().remove(removingFeedback);
+        removingFeedback = null;
+        fillFeedabcks();
+    }
+
+    public void removePersonTraining() {
+        if (removingPersonTraining == null) {
+            JsfUtil.addErrorMessage("Feedback?");
+            return;
+        }
+        getPersonTrainingFacade().remove(removingPersonTraining);
+        removingPersonTraining = null;
+        fillAbsentPersons();
+        fillPresentPersons();
+    }
+
+    public PersonTraining getRemovingPersonTraining() {
+        return removingPersonTraining;
+    }
+
+    public void setRemovingPersonTraining(PersonTraining removingPersonTraining) {
+        this.removingPersonTraining = removingPersonTraining;
+    }
+
+    public TrainingFeedback getRemovingFeedback() {
+        return removingFeedback;
+    }
+
+    public void setRemovingFeedback(TrainingFeedback removingFeedback) {
+        this.removingFeedback = removingFeedback;
+    }
+
+    public PersonTrainingFacade getPersonTrainingFacade() {
+        return personTrainingFacade;
+    }
+
+    public TrainingFeedbackFacade getTrainingFeedbackFacade() {
+        return trainingFeedbackFacade;
+    }
+
+    public PersonTraining getSelectedPersonTraining() {
+        return selectedPersonTraining;
+    }
+
+    public void setSelectedPersonTraining(PersonTraining selectedPersonTraining) {
+        this.selectedPersonTraining = selectedPersonTraining;
+    }
+
+    public TrainingFeedback getSelectedFeedback() {
+//        if (selectedFeedback == null) {
+//            selectedFeedback = new TrainingFeedback();
+//        }
+        return selectedFeedback;
+    }
+
+    public void setSelectedFeedback(TrainingFeedback selectedFeedback) {
+        this.selectedFeedback = selectedFeedback;
+    }
+
+    public List<TrainingFeedback> getSelectedFeedbacks() {
+        return selectedFeedbacks;
+    }
+
+    public void setSelectedFeedbacks(List<TrainingFeedback> selectedFeedbacks) {
+        this.selectedFeedbacks = selectedFeedbacks;
+    }
+
+    public TrainingSession getSelectedTrainingSession() {
+        return selectedTrainingSession;
+    }
+
+    public void setSelectedTrainingSession(TrainingSession selectedTrainingSession) {
+        this.selectedTrainingSession = selectedTrainingSession;
+    }
+
+    public List<PersonTraining> getPresentTrainees() {
+        return presentTrainees;
+    }
+
+    public void setPresentTrainees(List<PersonTraining> presentTrainees) {
+        this.presentTrainees = presentTrainees;
+    }
+
+    public List<PersonTraining> getAbsentTrainees() {
+        return absentTrainees;
+    }
+
+    public void setAbsentTrainees(List<PersonTraining> absentTrainees) {
+        this.absentTrainees = absentTrainees;
+    }
+
+    public Person getPresentTrainee() {
+        return presentTrainee;
+    }
+
+    public void setPresentTrainee(Person presentTrainee) {
+        this.presentTrainee = presentTrainee;
+    }
+
+    public Person getAbsentTrainee() {
+        return absentTrainee;
+    }
+
+    public void setAbsentTrainee(Person absentTrainee) {
+        this.absentTrainee = absentTrainee;
+    }
+
+    public String editCompletedTraining() {
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Training?");
+            return "";
+        }
+        fillAbsentPersons();
+        fillPresentPersons();
+        fillFeedabcks();
+        return "/training/Edit_Training_Completed";
+    }
+
+    public String makeSheculeTrainingComplete() {
+        if (selectedScheduled == null) {
             JsfUtil.addErrorMessage("Select a training");
             return "";
         }
-        if(selectedScheduled.getCompleted()==true){
+        if (selectedScheduled.getCompleted() == true) {
             JsfUtil.addErrorMessage("Already Completed");
         }
 
         selectedCompleted = new Training();
-        
-        
+
         try {
-            BeanUtils.copyProperties(selectedCompleted , selectedScheduled );
+            BeanUtils.copyProperties(selectedCompleted, selectedScheduled);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(TrainingController.class.getName()).log(Level.SEVERE, null, ex);
             JsfUtil.addErrorMessage("Copy Error");
@@ -70,24 +307,49 @@ public class TrainingController implements Serializable {
             Logger.getLogger(TrainingController.class.getName()).log(Level.SEVERE, null, ex);
             return "";
         }
-        
+
         selectedCompleted.setCompleted(null);
         selectedCompleted.setId(null);
         selectedCompleted.setScheduledTraining(selectedScheduled);
         selectedCompleted.setTrainingCategory(TrainingCategory.Completed_Training);
 
-        
-        
-        selectedScheduled.setCompleted(Boolean.TRUE);        
+        selectedScheduled.setCompleted(Boolean.TRUE);
         selectedScheduled.setCompletedTraining(selectedCompleted);
 
         getFacade().create(selectedCompleted);
         getFacade().edit(selectedScheduled);
-        
-        
+
+        fillAbsentPersons();
+        fillPresentPersons();
+        fillFeedabcks();
+
         return "/training/Edit_Training_Completed";
-        
-        
+
+    }
+
+    public String saveCompletedTraining() {
+        if (selectedCompleted == null) {
+            JsfUtil.addErrorMessage("Please select");
+            return "";
+        }
+        getFacade().edit(selectedCompleted);
+        return "/training/Search";
+    }
+
+    public Training getSelectedScheduled() {
+        return selectedScheduled;
+    }
+
+    public void setSelectedScheduled(Training selectedScheduled) {
+        this.selectedScheduled = selectedScheduled;
+    }
+
+    public Training getSelectedCompleted() {
+        return selectedCompleted;
+    }
+
+    public void setSelectedCompleted(Training selectedCompleted) {
+        this.selectedCompleted = selectedCompleted;
     }
 
     public void makeAllTrainingsSchedulesSchedules() {
@@ -127,26 +389,25 @@ public class TrainingController implements Serializable {
         int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
         System.out.println("monthsInBetween = " + monthsInBetween);
         selectedMonthlyTrainings = new ArrayList<MonthlyTrainings>();
-        for(int i = 0; i < (monthsInBetween+1);i++){
+        for (int i = 0; i < (monthsInBetween + 1); i++) {
             MonthlyTrainings mt = new MonthlyTrainings();
             Calendar fc = Calendar.getInstance();
             fc.setTime(from);
             fc.add(Calendar.MONTH, i);
-            
-            
+
             Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
             System.out.println("fromDate = " + fromDate);
             Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
             System.out.println("toDate = " + toDate);
-            mt.setTrainings(searchSchedules(fromDate,toDate));
+            mt.setTrainings(searchSchedules(fromDate, toDate));
             System.out.println("fc = " + fc);
             System.out.println("mt = " + mt);
-            
+
             fc.setTime(fromDate);
             fc.add(Calendar.DATE, 5);
-            
+
             System.out.println("fromDate = " + fromDate);
-            
+
             mt.setMonthDate(fromDate);
             selectedMonthlyTrainings.add(mt);
         }
@@ -191,8 +452,6 @@ public class TrainingController implements Serializable {
         this.selectedMonthlyTrainings = selectedMonthlyTrainings;
     }
 
-    
-    
     public List<Training> getSelectedItems() {
         return selectedItems;
     }

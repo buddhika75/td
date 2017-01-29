@@ -28,9 +28,21 @@ public class PersonTraining implements Serializable {
     Person person;
     @ManyToOne
     Training training;
+    @ManyToOne
+    TrainingSession trainingSession;
     @Enumerated(EnumType.STRING)
     PersonTrainingCategory category;
 
+    public TrainingSession getTrainingSession() {
+        return trainingSession;
+    }
+
+    public void setTrainingSession(TrainingSession trainingSession) {
+        this.trainingSession = trainingSession;
+    }
+
+    
+    
     public Person getPerson() {
         return person;
     }

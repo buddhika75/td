@@ -13,59 +13,429 @@
             <ui:define name="body">
 
                 <h:form id="TrainingEditForm">
-                    <h:panelGroup id="display">
-                        <p:panelGrid columns="4" rendered="#{trainingController.selected != null}" style="vertical-align: text-top;">
 
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_institute}" for="institute" />
-                            <p:selectOneMenu id="institute" value="#{trainingController.selected.institute}" >
-                                <f:selectItem itemLabel="Select" ></f:selectItem>
-                                <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
-                                               var="instituteItem"
-                                               itemLabel="#{instituteItem.name}"
-                                               itemValue="#{instituteItem}"/>
-                            </p:selectOneMenu>
 
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
-                            <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
-                                <f:selectItem itemLabel="Select" ></f:selectItem>
-                                <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
-                                               var="departmentItem"
-                                               itemLabel="#{departmentItem.name}"
-                                               itemValue="#{departmentItem}"/>
-                            </p:selectOneMenu>
+                    <p:tabView >
+                        <p:tab title="Details" >
+                            <h:panelGroup id="display">
+                                <p:panelGrid columns="4" rendered="#{trainingController.selectedCompleted != null}" style="vertical-align: text-top;">
 
-                            <p:outputLabel value="Place" for="headAtinstitute" />
-                            <p:selectOneMenu id="headAtinstitute" value="#{trainingController.selected.headAtinstitute}" >
-                                <f:selectItem itemLabel="Select" ></f:selectItem>
-                                <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
-                                               var="headAtinstituteItem"
-                                               itemLabel="#{headAtinstituteItem.name}"
-                                               itemValue="#{headAtinstituteItem}"/>
-                            </p:selectOneMenu>
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_name}" for="name" />
-                            <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.CreateTrainingTitle_name}" />
-                            <p:outputLabel value="Training Number" for="numberStr" />
-                            <p:inputText id="numberStr" value="#{trainingController.selected.numberStr}" title="#{bundle.CreateTrainingTitle_numberStr}" />
-                            <p:outputLabel value="Number of Participants" for="numberLong" />
-                            <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
-                            <p:outputLabel value="Start Date" for="startDate" />
-                            <p:calendar timeZone="Asia/Colombo" id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
-                            <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
-                            <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_objectives}" for="objectives" />
-                            <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selected.objectives}" title="#{bundle.CreateTrainingTitle_objectives}" />
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_contents}" for="contents" />
-                            <p:inputTextarea rows="4" cols="30" id="contents" value="#{trainingController.selected.contents}" title="#{bundle.CreateTrainingTitle_contents}" />
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_methodology}" for="methodology" />
-                            <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selected.methodology}" title="#{bundle.CreateTrainingTitle_methodology}" />
-                            <p:outputLabel value="#{bundle.CreateTrainingLabel_participants}" for="participants" />
-                            <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selected.participants}" title="#{bundle.CreateTrainingTitle_participants}" />
-                        </p:panelGrid>
-                        <p:commandButton actionListener="#{trainingController.update}" value="#{bundle.Save}" update="display,:TrainingListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingEditDialog');"/>
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TrainingEditDialog.hide()"/>
-                    </h:panelGroup>
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_institute}" for="institute" />
+                                    <p:selectOneMenu id="institute" value="#{trainingController.selectedCompleted.institute}" >
+                                        <f:selectItem itemLabel="Select" ></f:selectItem>
+                                        <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                                       var="instituteItem"
+                                                       itemLabel="#{instituteItem.name}"
+                                                       itemValue="#{instituteItem}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
+                                    <p:selectOneMenu id="department" value="#{trainingController.selectedCompleted.department}" >
+                                        <f:selectItem itemLabel="Select" ></f:selectItem>
+                                        <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
+                                                       var="departmentItem"
+                                                       itemLabel="#{departmentItem.name}"
+                                                       itemValue="#{departmentItem}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Place" for="headAtinstitute" />
+                                    <p:selectOneMenu id="headAtinstitute" value="#{trainingController.selectedCompleted.headAtinstitute}" >
+                                        <f:selectItem itemLabel="Select" ></f:selectItem>
+                                        <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                                       var="headAtinstituteItem"
+                                                       itemLabel="#{headAtinstituteItem.name}"
+                                                       itemValue="#{headAtinstituteItem}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_name}" for="name" />
+                                    <p:inputText id="name" value="#{trainingController.selectedCompleted.name}" title="#{bundle.CreateTrainingTitle_name}" />
+                                    <p:outputLabel value="Training Number" for="numberStr" />
+                                    <p:inputText id="numberStr" value="#{trainingController.selectedCompleted.numberStr}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                                    <p:outputLabel value="Number of Participants" for="numberLong" />
+                                    <p:inputText id="numberLong" value="#{trainingController.selectedCompleted.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                                    <p:outputLabel value="Start Date" for="startDate" />
+                                    <p:calendar timeZone="Asia/Colombo" id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selectedCompleted.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
+                                    <p:inputText id="numberOfDays" value="#{trainingController.selectedCompleted.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
+                                    <p:inputText id="conductedBy" value="#{trainingController.selectedCompleted.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_objectives}" for="objectives" />
+                                    <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selectedCompleted.objectives}" title="#{bundle.CreateTrainingTitle_objectives}" />
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_contents}" for="contents" />
+                                    <p:inputTextarea rows="4" cols="30" id="contents" value="#{trainingController.selectedCompleted.contents}" title="#{bundle.CreateTrainingTitle_contents}" />
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_methodology}" for="methodology" />
+                                    <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selectedCompleted.methodology}" title="#{bundle.CreateTrainingTitle_methodology}" />
+                                    <p:outputLabel value="#{bundle.CreateTrainingLabel_participants}" for="participants" />
+                                    <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selectedCompleted.participants}" title="#{bundle.CreateTrainingTitle_participants}" />
+                                </p:panelGrid>
+                                <p:commandButton ajax="false" value="#{bundle.Save}"  action="#{trainingController.saveCompletedTraining()}"/>
+                                <p:commandButton value="#{bundle.Cancel}" action="/training/Search"/>
+                            </h:panelGroup>
+                        </p:tab>
+                        <p:tab title="Sessions" >
+
+                        </p:tab>
+                        <p:tab title="Attendance" >
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="Person" ></p:outputLabel>
+                                <p:autoComplete id="cmbPerson" value="#{trainingController.presentTrainee}"
+                                                completeMethod="#{personController.completePersons}"
+                                                var="p" 
+                                                itemLabel="#{p.name}"
+                                                itemValue="#{p}">
+                                </p:autoComplete>
+                                <p:commandButton ajax="false" value="Add Person" action="#{trainingController.addPresentPerson()}" ></p:commandButton>
+
+                            </p:panelGrid>
+                            <p:dataTable value="#{trainingController.presentTrainees}" var="pt" >
+                                <p:column headerText="Name">
+                                    <p:outputLabel value="#{pt.person.name}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="NIC">
+                                    <p:outputLabel value="#{pt.person.nic}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Phone">
+                                    <p:outputLabel value="#{pt.person.phone}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <p:outputLabel value="#{pt.person.email}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Actions">
+                                    <p:commandButton ajax="false" value="Remove" action="#{trainingController.removePersonTraining()}" >
+                                        <f:setPropertyActionListener value="#{pt}" target="#{trainingController.removingPersonTraining}" ></f:setPropertyActionListener>
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+                        <p:tab title="Absenties" >
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="Person" ></p:outputLabel>
+                                <p:autoComplete id="cmbAbsentPerson" value="#{trainingController.absentTrainee}"
+                                                completeMethod="#{personController.completePersons}"
+                                                var="p" 
+                                                itemLabel="#{p.name}"
+                                                itemValue="#{p}">
+                                </p:autoComplete>
+                                <p:commandButton ajax="false" value="Add Person" action="#{trainingController.addAbsentPerson()}" ></p:commandButton>
+
+                            </p:panelGrid>
+                            <p:dataTable value="#{trainingController.absentTrainees}" var="at" >
+                                <p:column headerText="Name">
+                                    <p:outputLabel value="#{at.person.name}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="NIC">
+                                    <p:outputLabel value="#{at.person.nic}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Phone">
+                                    <p:outputLabel value="#{at.person.phone}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <p:outputLabel value="#{at.person.email}" ></p:outputLabel>
+                                </p:column>
+                                <p:column headerText="Actions">
+                                    <p:commandButton ajax="false" value="Remove" action="#{trainingController.removePersonTraining()}" >
+                                        <f:setPropertyActionListener value="#{at}" target="#{trainingController.removingPersonTraining}" ></f:setPropertyActionListener>
+                                    </p:commandButton>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:tab>
+                        <p:tab title="Feedback" >
+                            <p:panelGrid columns="2" >
+                                <p:panel header="Feedbacks" >
+                                    <p:dataTable value="#{trainingController.selectedFeedbacks}" var="item">
+                                        <f:facet name="header" >
+                                            <p:commandButton value="Add New Feedback" ajax="false" action="#{trainingController.addFeedback()}" ></p:commandButton>
+                                        </f:facet>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Training"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.training}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Subject_matters_adequate"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.subject_matters_adequate}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Duration_adequate"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.duration_adequate}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Practicality"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.practicality}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Usefullness"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.usefullness}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Practicle_and_theory_concurancy"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.practicle_and_theory_concurancy}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Lecture_halls"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.lecture_halls}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Staff_coperation"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.staff_coperation}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Meals"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.meals}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Toilets"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.toilets}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1Presentation"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1Presentation}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1TimeManagement"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1TimeManagement}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1SubjectAdequacy"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1SubjectAdequacy}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1relavanceToTopic"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1relavanceToTopic}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1Practicles"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1Practicles}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer1Lecturing"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer1Lecturing}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2Presentation"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2Presentation}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2TimeManagement"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2TimeManagement}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2SubjectAdequacy"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2SubjectAdequacy}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2relavanceToTopic"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2relavanceToTopic}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2Practicles"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2Practicles}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer2Lecturing"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer2Lecturing}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3Presentation"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3Presentation}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3TimeManagement"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3TimeManagement}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3SubjectAdequacy"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3SubjectAdequacy}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3relavanceToTopic"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3relavanceToTopic}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3Practicles"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3Practicles}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Trainer3Lecturing"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.trainer3Lecturing}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Comments"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.comments}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Id"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.id}"/>
+                                        </p:column>
+                                    </p:dataTable>
+
+
+                                </p:panel>
+                                <p:panel header="Feedback Details" >
+                                    <p:commandButton value="Save" ajax="false" action="#{trainingController.saveFeedback()}" ></p:commandButton>
+                                    <p:panelGrid columns="2">
+                                        <p:outputLabel value="Subject_matters_adequate:" for="subject_matters_adequate" />
+                                        <p:inputText id="subject_matters_adequate" value="#{trainingController.selectedFeedback.subject_matters_adequate}" title="Subject_matters_adequate" />
+                                        <p:outputLabel value="Duration_adequate:" for="duration_adequate" />
+                                        <p:inputText id="duration_adequate" value="#{trainingController.selectedFeedback.duration_adequate}" title="Duration_adequate" />
+                                        <p:outputLabel value="Practicality:" for="practicality" />
+                                        <p:inputText id="practicality" value="#{trainingController.selectedFeedback.practicality}" title="Practicality" />
+                                        <p:outputLabel value="Usefullness:" for="usefullness" />
+                                        <p:inputText id="usefullness" value="#{trainingController.selectedFeedback.usefullness}" title="Usefullness" />
+                                        <p:outputLabel value="Practicle_and_theory_concurancy:" for="practicle_and_theory_concurancy" />
+                                        <p:inputText id="practicle_and_theory_concurancy" value="#{trainingController.selectedFeedback.practicle_and_theory_concurancy}" title="Practicle_and_theory_concurancy" />
+                                        <p:outputLabel value="Lecture_halls:" for="lecture_halls" />
+                                        <p:inputText id="lecture_halls" value="#{trainingController.selectedFeedback.lecture_halls}" title="Lecture_halls" />
+                                        <p:outputLabel value="Staff_coperation:" for="staff_coperation" />
+                                        <p:inputText id="staff_coperation" value="#{trainingController.selectedFeedback.staff_coperation}" title="Staff_coperation" />
+                                        <p:outputLabel value="Meals:" for="meals" />
+                                        <p:inputText id="meals" value="#{trainingController.selectedFeedback.meals}" title="Meals" />
+                                        <p:outputLabel value="Toilets:" for="toilets" />
+                                        <p:inputText id="toilets" value="#{trainingController.selectedFeedback.toilets}" title="Toilets" />
+                                        <p:outputLabel value="Trainer1:" for="trainer1" />
+                                        <p:selectOneMenu id="trainer1" value="#{trainingController.selectedFeedback.trainer1}" >
+                                            <!-- TODO: update below reference to list of available items-->
+                                            <f:selectItems value="#{fixme}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Trainer1Presentation:" for="trainer1Presentation" />
+                                        <p:inputText id="trainer1Presentation" value="#{trainingController.selectedFeedback.trainer1Presentation}" title="Trainer1Presentation" />
+                                        <p:outputLabel value="Trainer1TimeManagement:" for="trainer1TimeManagement" />
+                                        <p:inputText id="trainer1TimeManagement" value="#{trainingController.selectedFeedback.trainer1TimeManagement}" title="Trainer1TimeManagement" />
+                                        <p:outputLabel value="Trainer1SubjectAdequacy:" for="trainer1SubjectAdequacy" />
+                                        <p:inputText id="trainer1SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer1SubjectAdequacy}" title="Trainer1SubjectAdequacy" />
+                                        <p:outputLabel value="Trainer1relavanceToTopic:" for="trainer1relavanceToTopic" />
+                                        <p:inputText id="trainer1relavanceToTopic" value="#{trainingController.selectedFeedback.trainer1relavanceToTopic}" title="Trainer1relavanceToTopic" />
+                                        <p:outputLabel value="Trainer1Practicles:" for="trainer1Practicles" />
+                                        <p:inputText id="trainer1Practicles" value="#{trainingController.selectedFeedback.trainer1Practicles}" title="Trainer1Practicles" />
+                                        <p:outputLabel value="Trainer1Lecturing:" for="trainer1Lecturing" />
+                                        <p:inputText id="trainer1Lecturing" value="#{trainingController.selectedFeedback.trainer1Lecturing}" title="Trainer1Lecturing" />
+                                        <p:outputLabel value="Trainer2:" for="trainer2" />
+                                        <p:selectOneMenu id="trainer2" value="#{trainingController.selectedFeedback.trainer2}" >
+                                            <!-- TODO: update below reference to list of available items-->
+                                            <f:selectItems value="#{fixme}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Trainer2Presentation:" for="trainer2Presentation" />
+                                        <p:inputText id="trainer2Presentation" value="#{trainingController.selectedFeedback.trainer2Presentation}" title="Trainer2Presentation" />
+                                        <p:outputLabel value="Trainer2TimeManagement:" for="trainer2TimeManagement" />
+                                        <p:inputText id="trainer2TimeManagement" value="#{trainingController.selectedFeedback.trainer2TimeManagement}" title="Trainer2TimeManagement" />
+                                        <p:outputLabel value="Trainer2SubjectAdequacy:" for="trainer2SubjectAdequacy" />
+                                        <p:inputText id="trainer2SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer2SubjectAdequacy}" title="Trainer2SubjectAdequacy" />
+                                        <p:outputLabel value="Trainer2relavanceToTopic:" for="trainer2relavanceToTopic" />
+                                        <p:inputText id="trainer2relavanceToTopic" value="#{trainingController.selectedFeedback.trainer2relavanceToTopic}" title="Trainer2relavanceToTopic" />
+                                        <p:outputLabel value="Trainer2Practicles:" for="trainer2Practicles" />
+                                        <p:inputText id="trainer2Practicles" value="#{trainingController.selectedFeedback.trainer2Practicles}" title="Trainer2Practicles" />
+                                        <p:outputLabel value="Trainer2Lecturing:" for="trainer2Lecturing" />
+                                        <p:inputText id="trainer2Lecturing" value="#{trainingController.selectedFeedback.trainer2Lecturing}" title="Trainer2Lecturing" />
+                                        <p:outputLabel value="Trainer3:" for="trainer3" />
+                                        <p:selectOneMenu id="trainer3" value="#{trainingController.selectedFeedback.trainer3}" >
+                                            <!-- TODO: update below reference to list of available items-->
+                                            <f:selectItems value="#{fixme}"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Trainer3Presentation:" for="trainer3Presentation" />
+                                        <p:inputText id="trainer3Presentation" value="#{trainingController.selectedFeedback.trainer3Presentation}" title="Trainer3Presentation" />
+                                        <p:outputLabel value="Trainer3TimeManagement:" for="trainer3TimeManagement" />
+                                        <p:inputText id="trainer3TimeManagement" value="#{trainingController.selectedFeedback.trainer3TimeManagement}" title="Trainer3TimeManagement" />
+                                        <p:outputLabel value="Trainer3SubjectAdequacy:" for="trainer3SubjectAdequacy" />
+                                        <p:inputText id="trainer3SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer3SubjectAdequacy}" title="Trainer3SubjectAdequacy" />
+                                        <p:outputLabel value="Trainer3relavanceToTopic:" for="trainer3relavanceToTopic" />
+                                        <p:inputText id="trainer3relavanceToTopic" value="#{trainingController.selectedFeedback.trainer3relavanceToTopic}" title="Trainer3relavanceToTopic" />
+                                        <p:outputLabel value="Trainer3Practicles:" for="trainer3Practicles" />
+                                        <p:inputText id="trainer3Practicles" value="#{trainingController.selectedFeedback.trainer3Practicles}" title="Trainer3Practicles" />
+                                        <p:outputLabel value="Trainer3Lecturing:" for="trainer3Lecturing" />
+                                        <p:inputText id="trainer3Lecturing" value="#{trainingController.selectedFeedback.trainer3Lecturing}" title="Trainer3Lecturing" />
+                                        <p:outputLabel value="Comments:" for="comments" />
+                                        <p:inputTextarea rows="4" cols="30" id="comments" value="#{trainingController.selectedFeedback.comments}" title="Comments" />
+                                        <p:outputLabel value="Id:" for="id" />
+                                        <p:inputText id="id" value="#{trainingController.selectedFeedback.id}" title="Id" />
+                                    </p:panelGrid>
+
+                                </p:panel>
+                            </p:panelGrid>
+                        </p:tab>
+
+
+                    </p:tabView>
+
+
                 </h:form>
 
             </ui:define>

@@ -161,9 +161,23 @@
                         </p:column>
                         <p:column width="20">
                             <f:facet name="header">
+                                <h:outputText value="Completed"/>
+                            </f:facet>
+                            <h:outputText value="#{item.completed ? 'Completed' : 'Not Completed'}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
                                 <h:outputText value="Actions"/>
                             </f:facet>
+                            <p:commandButton rendered="#{not item.completed}" ajax="false" value="Mark as Complete" action="#{trainingController.makeSheculeTrainingComplete()}" >
+                                <f:setPropertyActionListener target="#{trainingController.selectedScheduled}" value="#{item}" ></f:setPropertyActionListener>
+                            </p:commandButton>
+                            <p:commandButton rendered="#{item.completed}" ajax="false" value="View Completed" action="#{trainingController.editCompletedTraining()}" >
+                                <f:setPropertyActionListener target="#{trainingController.selectedCompleted}" value="#{item}" ></f:setPropertyActionListener>
+                            </p:commandButton>
+                            
                         </p:column>
+
                         <f:facet name="header">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{trainingController.prepareCreate}" update=":TrainingCreateForm" oncomplete="PF('TrainingCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TrainingViewForm" oncomplete="PF('TrainingViewDialog').show()" disabled="#{empty trainingController.selected}"/>
