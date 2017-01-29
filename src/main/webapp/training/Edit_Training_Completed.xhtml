@@ -150,12 +150,6 @@
                                         </f:facet>
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="Training"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.training}"/>
-                                        </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
                                                 <h:outputText value="Subject_matters_adequate"/>
                                             </f:facet>
                                             <h:outputText value="#{item.subject_matters_adequate}"/>
@@ -351,18 +345,36 @@
 
                                 </p:panel>
                                 <p:panel header="Feedback Details" >
-                                    <p:commandButton value="Save" ajax="false" action="#{trainingController.saveFeedback()}" ></p:commandButton>
-                                    <p:panelGrid columns="2">
+                                    <p:commandButton value="Save" ajax="false" action="#{trainingController.saveFeedback()}" rendered="#{trainingController.selectedFeedback ne null}"></p:commandButton>
+                                    <p:panelGrid columns="2" rendered="#{trainingController.selectedFeedback ne null}">
                                         <p:outputLabel value="Subject_matters_adequate:" for="subject_matters_adequate" />
-                                        <p:inputText id="subject_matters_adequate" value="#{trainingController.selectedFeedback.subject_matters_adequate}" title="Subject_matters_adequate" />
+                                        <p:selectOneMenu id="subject_matters_adequate" value="#{trainingController.selectedFeedback.subject_matters_adequate}" >
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Duration_adequate:" for="duration_adequate" />
-                                        <p:inputText id="duration_adequate" value="#{trainingController.selectedFeedback.duration_adequate}" title="Duration_adequate" />
+                                        <p:selectOneMenu id="duration_adequate" value="#{trainingController.selectedFeedback.duration_adequate}" >
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Practicality:" for="practicality" />
-                                        <p:inputText id="practicality" value="#{trainingController.selectedFeedback.practicality}" title="Practicality" />
+                                        <p:selectOneMenu id="practicality" value="#{trainingController.selectedFeedback.practicality}" >
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Usefullness:" for="usefullness" />
-                                        <p:inputText id="usefullness" value="#{trainingController.selectedFeedback.usefullness}" title="Usefullness" />
+                                        <p:selectOneMenu id="usefullness" value="#{trainingController.selectedFeedback.usefullness}" >
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Practicle_and_theory_concurancy:" for="practicle_and_theory_concurancy" />
-                                        <p:inputText id="practicle_and_theory_concurancy" value="#{trainingController.selectedFeedback.practicle_and_theory_concurancy}" title="Practicle_and_theory_concurancy" />
+                                        <p:selectOneMenu id="practicle_and_theory_concurancy" value="#{trainingController.selectedFeedback.practicle_and_theory_concurancy}" >
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Lecture_halls:" for="lecture_halls" />
                                         <p:inputText id="lecture_halls" value="#{trainingController.selectedFeedback.lecture_halls}" title="Lecture_halls" />
                                         <p:outputLabel value="Staff_coperation:" for="staff_coperation" />
@@ -372,10 +384,13 @@
                                         <p:outputLabel value="Toilets:" for="toilets" />
                                         <p:inputText id="toilets" value="#{trainingController.selectedFeedback.toilets}" title="Toilets" />
                                         <p:outputLabel value="Trainer1:" for="trainer1" />
-                                        <p:selectOneMenu id="trainer1" value="#{trainingController.selectedFeedback.trainer1}" >
-                                            <!-- TODO: update below reference to list of available items-->
-                                            <f:selectItems value="#{fixme}"/>
-                                        </p:selectOneMenu>
+                                        <p:autoComplete id="trainer1" value="#{trainingController.selectedFeedback.trainer1}"
+                                                        completeMethod="#{personController.completePersons}"
+                                                        var="p" 
+                                                        itemLabel="#{p.name}"
+                                                        itemValue="#{p}">
+                                        </p:autoComplete>
+
                                         <p:outputLabel value="Trainer1Presentation:" for="trainer1Presentation" />
                                         <p:inputText id="trainer1Presentation" value="#{trainingController.selectedFeedback.trainer1Presentation}" title="Trainer1Presentation" />
                                         <p:outputLabel value="Trainer1TimeManagement:" for="trainer1TimeManagement" />
@@ -389,10 +404,13 @@
                                         <p:outputLabel value="Trainer1Lecturing:" for="trainer1Lecturing" />
                                         <p:inputText id="trainer1Lecturing" value="#{trainingController.selectedFeedback.trainer1Lecturing}" title="Trainer1Lecturing" />
                                         <p:outputLabel value="Trainer2:" for="trainer2" />
-                                        <p:selectOneMenu id="trainer2" value="#{trainingController.selectedFeedback.trainer2}" >
-                                            <!-- TODO: update below reference to list of available items-->
-                                            <f:selectItems value="#{fixme}"/>
-                                        </p:selectOneMenu>
+                                        <p:autoComplete id="trainer2" value="#{trainingController.selectedFeedback.trainer2}"
+                                                        completeMethod="#{personController.completePersons}"
+                                                        var="p" 
+                                                        itemLabel="#{p.name}"
+                                                        itemValue="#{p}">
+                                        </p:autoComplete>
+
                                         <p:outputLabel value="Trainer2Presentation:" for="trainer2Presentation" />
                                         <p:inputText id="trainer2Presentation" value="#{trainingController.selectedFeedback.trainer2Presentation}" title="Trainer2Presentation" />
                                         <p:outputLabel value="Trainer2TimeManagement:" for="trainer2TimeManagement" />
@@ -406,10 +424,13 @@
                                         <p:outputLabel value="Trainer2Lecturing:" for="trainer2Lecturing" />
                                         <p:inputText id="trainer2Lecturing" value="#{trainingController.selectedFeedback.trainer2Lecturing}" title="Trainer2Lecturing" />
                                         <p:outputLabel value="Trainer3:" for="trainer3" />
-                                        <p:selectOneMenu id="trainer3" value="#{trainingController.selectedFeedback.trainer3}" >
-                                            <!-- TODO: update below reference to list of available items-->
-                                            <f:selectItems value="#{fixme}"/>
-                                        </p:selectOneMenu>
+                                        <p:autoComplete id="trainer3" value="#{trainingController.selectedFeedback.trainer3}"
+                                                        completeMethod="#{personController.completePersons}"
+                                                        var="p" 
+                                                        itemLabel="#{p.name}"
+                                                        itemValue="#{p}">
+                                        </p:autoComplete>
+
                                         <p:outputLabel value="Trainer3Presentation:" for="trainer3Presentation" />
                                         <p:inputText id="trainer3Presentation" value="#{trainingController.selectedFeedback.trainer3Presentation}" title="Trainer3Presentation" />
                                         <p:outputLabel value="Trainer3TimeManagement:" for="trainer3TimeManagement" />
@@ -424,8 +445,6 @@
                                         <p:inputText id="trainer3Lecturing" value="#{trainingController.selectedFeedback.trainer3Lecturing}" title="Trainer3Lecturing" />
                                         <p:outputLabel value="Comments:" for="comments" />
                                         <p:inputTextarea rows="4" cols="30" id="comments" value="#{trainingController.selectedFeedback.comments}" title="Comments" />
-                                        <p:outputLabel value="Id:" for="id" />
-                                        <p:inputText id="id" value="#{trainingController.selectedFeedback.id}" title="Id" />
                                     </p:panelGrid>
 
                                 </p:panel>

@@ -8,6 +8,7 @@ package lk.gov.sp.healthdept.td.controllers;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import lk.gov.sp.healthdept.td.entity.FeedbackCategory;
 import lk.gov.sp.healthdept.td.entity.ItemCategory;
 
 /**
@@ -26,6 +27,10 @@ public class EnumController implements Serializable {
     
     public ItemCategory[] getItemCategorys(){
         return ItemCategory.values();
+    }
+    
+    public FeedbackCategory[] getFeedbackCategorys(){
+        return FeedbackCategory.values();
     }
     
 }
