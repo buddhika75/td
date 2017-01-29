@@ -4,6 +4,7 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil;
 import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import lk.gov.sp.healthdept.td.entity.MonthlyTrainings;
 import lk.gov.sp.healthdept.td.entity.Training;
 import lk.gov.sp.healthdept.td.entity.TrainingCategory;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
+import org.apache.commons.beanutils.BeanUtils;
 
 @Named("trainingController")
 @SessionScoped
@@ -36,11 +38,57 @@ public class TrainingController implements Serializable {
     private lk.gov.sp.healthdept.td.facades.TrainingFacade ejbFacade;
     private List<Training> items = null;
     private Training selected;
+    private Training selectedScheduled;
+    private Training selectedCompleted;
     Department department;
     Date from;
     Date to;
     private List<Training> selectedItems = null;
     List<MonthlyTrainings> selectedMonthlyTrainings;
+    
+    
+    public String makeSheculeTrainingComplete(){
+        if(selectedScheduled==null){
+            JsfUtil.addErrorMessage("Select a training");
+            return "";
+        }
+        if(selectedScheduled.getCompleted()==true){
+            JsfUtil.addErrorMessage("Already Completed");
+        }
+
+        selectedCompleted = new Training();
+        
+        
+        try {
+            BeanUtils.copyProperties(selectedCompleted , selectedScheduled );
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(TrainingController.class.getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage("Copy Error");
+            return "";
+        } catch (InvocationTargetException ex) {
+            JsfUtil.addErrorMessage("Copy Error");
+            Logger.getLogger(TrainingController.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+        
+        selectedCompleted.setCompleted(null);
+        selectedCompleted.setId(null);
+        selectedCompleted.setScheduledTraining(selectedScheduled);
+        selectedCompleted.setTrainingCategory(TrainingCategory.Completed_Training);
+
+        
+        
+        selectedScheduled.setCompleted(Boolean.TRUE);        
+        selectedScheduled.setCompletedTraining(selectedCompleted);
+
+        getFacade().create(selectedCompleted);
+        getFacade().edit(selectedScheduled);
+        
+        
+        return "/training/Edit_Training_Completed";
+        
+        
+    }
 
     public void makeAllTrainingsSchedulesSchedules() {
         List<Training> ts = getFacade().findAll();

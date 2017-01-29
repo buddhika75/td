@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template.xhtml">
+
+            <ui:define name="body">
+
+                <h:form id="TrainingEditForm">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="4" rendered="#{trainingController.selected != null}" style="vertical-align: text-top;">
+
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_institute}" for="institute" />
+                            <p:selectOneMenu id="institute" value="#{trainingController.selected.institute}" >
+                                <f:selectItem itemLabel="Select" ></f:selectItem>
+                                <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                               var="instituteItem"
+                                               itemLabel="#{instituteItem.name}"
+                                               itemValue="#{instituteItem}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_department}" for="department" />
+                            <p:selectOneMenu id="department" value="#{trainingController.selected.department}" >
+                                <f:selectItem itemLabel="Select" ></f:selectItem>
+                                <f:selectItems value="#{departmentController.itemsAvailableSelectOne}"
+                                               var="departmentItem"
+                                               itemLabel="#{departmentItem.name}"
+                                               itemValue="#{departmentItem}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Place" for="headAtinstitute" />
+                            <p:selectOneMenu id="headAtinstitute" value="#{trainingController.selected.headAtinstitute}" >
+                                <f:selectItem itemLabel="Select" ></f:selectItem>
+                                <f:selectItems value="#{instituteController.itemsAvailableSelectOne}"
+                                               var="headAtinstituteItem"
+                                               itemLabel="#{headAtinstituteItem.name}"
+                                               itemValue="#{headAtinstituteItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_name}" for="name" />
+                            <p:inputText id="name" value="#{trainingController.selected.name}" title="#{bundle.CreateTrainingTitle_name}" />
+                            <p:outputLabel value="Training Number" for="numberStr" />
+                            <p:inputText id="numberStr" value="#{trainingController.selected.numberStr}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                            <p:outputLabel value="Number of Participants" for="numberLong" />
+                            <p:inputText id="numberLong" value="#{trainingController.selected.numberLong}" title="#{bundle.CreateTrainingTitle_numberStr}" />
+                            <p:outputLabel value="Start Date" for="startDate" />
+                            <p:calendar timeZone="Asia/Colombo" id="startDate" pattern="MM/dd/yyyy" value="#{trainingController.selected.startDate}" title="#{bundle.EditTrainingTitle_startDate}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_numberOfDays}" for="numberOfDays" />
+                            <p:inputText id="numberOfDays" value="#{trainingController.selected.numberOfDays}" title="#{bundle.CreateTrainingTitle_numberOfDays}" />
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_conductedBy}" for="conductedBy" />
+                            <p:inputText id="conductedBy" value="#{trainingController.selected.conductedBy}" title="#{bundle.CreateTrainingTitle_conductedBy}" />
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_objectives}" for="objectives" />
+                            <p:inputTextarea rows="4" cols="30" id="objectives" value="#{trainingController.selected.objectives}" title="#{bundle.CreateTrainingTitle_objectives}" />
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_contents}" for="contents" />
+                            <p:inputTextarea rows="4" cols="30" id="contents" value="#{trainingController.selected.contents}" title="#{bundle.CreateTrainingTitle_contents}" />
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_methodology}" for="methodology" />
+                            <p:inputTextarea rows="4" cols="30" id="methodology" value="#{trainingController.selected.methodology}" title="#{bundle.CreateTrainingTitle_methodology}" />
+                            <p:outputLabel value="#{bundle.CreateTrainingLabel_participants}" for="participants" />
+                            <p:inputTextarea rows="4" cols="30" id="participants" value="#{trainingController.selected.participants}" title="#{bundle.CreateTrainingTitle_participants}" />
+                        </p:panelGrid>
+                        <p:commandButton actionListener="#{trainingController.update}" value="#{bundle.Save}" update="display,:TrainingListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TrainingEditDialog');"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TrainingEditDialog.hide()"/>
+                    </h:panelGroup>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

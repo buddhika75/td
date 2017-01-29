@@ -65,6 +65,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
                         <p:column width="10" >
                             <f:facet name="header">
@@ -162,12 +164,23 @@
                                 <h:outputText value="Actions"/>
                             </f:facet>
                         </p:column>
+                        <f:facet name="header">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{trainingController.prepareCreate}" update=":TrainingCreateForm" oncomplete="PF('TrainingCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TrainingViewForm" oncomplete="PF('TrainingViewDialog').show()" disabled="#{empty trainingController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TrainingEditForm" oncomplete="PF('TrainingEditDialog').show()" disabled="#{empty trainingController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{trainingController.destroy}" update=":growl,datalist" disabled="#{empty trainingController.selected}"/>
+                        </f:facet>
+
                     </p:dataTable>
                 </p:panel>
 
 
             </h:form>
 
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
 
         </ui:define>
     </ui:composition>

@@ -118,7 +118,7 @@
                             </f:facet>
                             <h:outputText value="#{item.numberLong}"/>
                         </p:column>
-                        <f:facet name="footer">
+                        <f:facet name="header">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{trainingController.prepareCreate}" update=":TrainingCreateForm" oncomplete="PF('TrainingCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TrainingViewForm" oncomplete="PF('TrainingViewDialog').show()" disabled="#{empty trainingController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":TrainingEditForm" oncomplete="PF('TrainingEditDialog').show()" disabled="#{empty trainingController.selected}"/>

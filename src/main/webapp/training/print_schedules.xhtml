@@ -34,6 +34,45 @@
             </h2>
 
 
+            <table  style="width: 98%; border: 1px solid;padding: 5px; margin: 1px;" class="pure-table-bordered pure-table-striped" >
+                <thead >
+                    <tr >
+                        <th colspan="2">
+                            <p:outputLabel value="Training Schedule Index" ></p:outputLabel>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody >
+                    <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
+                        <tr>
+                            <td colspan="3">
+                                <p:outputLabel value="#{mts.monthDate}" >
+                                    <f:convertDateTime pattern="MMMM" ></f:convertDateTime>
+                                </p:outputLabel>
+                            </td>
+                        </tr>
+
+                        <h:panelGroup rendered="#{not empty mts.trainings}">
+                            <ui:repeat value="#{mts.trainings}" var="t"  >
+                                <tr >
+                                    <td>
+                                        
+                                    </td>
+                                    <td style="width: 80%;">
+                                        <p:outputLabel value="#{t.name}" ></p:outputLabel>
+                                    </td>
+                                    <td  style="width: 10%;">
+                                        
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ui:repeat>
+
+                </tbody>
+            </table>
+
             <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
                 <h3>
                     <p:outputLabel value="Month : " ></p:outputLabel>
