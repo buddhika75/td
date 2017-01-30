@@ -286,11 +286,19 @@ public class TrainingController implements Serializable {
     }
 
     public String makeSheculeTrainingComplete() {
+        System.out.println("makeSheculeTrainingComplete");
+        System.out.println("selectedScheduled = " + selectedScheduled);
         if (selectedScheduled == null) {
             JsfUtil.addErrorMessage("Select a training");
             return "";
         }
-        if (selectedScheduled.getCompleted() == true) {
+        System.out.println("selectedScheduled = " + selectedScheduled);
+        System.out.println("selectedScheduled.getCompleted() = " + selectedScheduled.getCompleted());
+        if(selectedScheduled.getCompleted()==null){
+            selectedScheduled.setCompleted(Boolean.FALSE);
+        }
+        
+        if ( selectedScheduled.getCompleted() == true) {
             JsfUtil.addErrorMessage("Already Completed");
         }
 
