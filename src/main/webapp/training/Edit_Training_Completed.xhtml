@@ -206,7 +206,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Trainer1"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.trainer1}"/>
+                                            <h:outputText value="#{item.trainer1.name}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
@@ -248,7 +248,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Trainer2"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.trainer2}"/>
+                                            <h:outputText value="#{item.trainer2.name}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
@@ -290,7 +290,7 @@
                                             <f:facet name="header">
                                                 <h:outputText value="Trainer3"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.trainer3}"/>
+                                            <h:outputText value="#{item.trainer3.name}"/>
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
@@ -336,9 +336,11 @@
                                         </p:column>
                                         <p:column>
                                             <f:facet name="header">
-                                                <h:outputText value="Id"/>
+                                                <h:outputText value="Actions"/>
                                             </f:facet>
-                                            <h:outputText value="#{item.id}"/>
+                                            <p:commandButton ajax="false" value="Remove" action="#{trainingController.removeFeedback()}" >
+                                                <f:setPropertyActionListener target="#{trainingController.removingFeedback}" value="#{item}" ></f:setPropertyActionListener>
+                                            </p:commandButton>
                                         </p:column>
                                     </p:dataTable>
 
@@ -349,40 +351,65 @@
                                     <p:panelGrid columns="2" rendered="#{trainingController.selectedFeedback ne null}">
                                         <p:outputLabel value="Subject_matters_adequate:" for="subject_matters_adequate" />
                                         <p:selectOneMenu id="subject_matters_adequate" value="#{trainingController.selectedFeedback.subject_matters_adequate}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
                                             <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
                                         </p:selectOneMenu>
 
 
                                         <p:outputLabel value="Duration_adequate:" for="duration_adequate" />
                                         <p:selectOneMenu id="duration_adequate" value="#{trainingController.selectedFeedback.duration_adequate}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
                                             <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Practicality:" for="practicality" />
                                         <p:selectOneMenu id="practicality" value="#{trainingController.selectedFeedback.practicality}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
                                             <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
                                         </p:selectOneMenu>
 
                                         <p:outputLabel value="Usefullness:" for="usefullness" />
                                         <p:selectOneMenu id="usefullness" value="#{trainingController.selectedFeedback.usefullness}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
                                             <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
                                         </p:selectOneMenu>
 
 
                                         <p:outputLabel value="Practicle_and_theory_concurancy:" for="practicle_and_theory_concurancy" />
                                         <p:selectOneMenu id="practicle_and_theory_concurancy" value="#{trainingController.selectedFeedback.practicle_and_theory_concurancy}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
                                             <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
                                         </p:selectOneMenu>
 
 
                                         <p:outputLabel value="Lecture_halls:" for="lecture_halls" />
-                                        <p:inputText id="lecture_halls" value="#{trainingController.selectedFeedback.lecture_halls}" title="Lecture_halls" />
+                                        <p:selectOneMenu id="lecture_halls" value="#{trainingController.selectedFeedback.lecture_halls}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Staff_coperation:" for="staff_coperation" />
-                                        <p:inputText id="staff_coperation" value="#{trainingController.selectedFeedback.staff_coperation}" title="Staff_coperation" />
+                                        <p:selectOneMenu id="staff_coperation" value="#{trainingController.selectedFeedback.staff_coperation}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Meals:" for="meals" />
-                                        <p:inputText id="meals" value="#{trainingController.selectedFeedback.meals}" title="Meals" />
+                                        <p:selectOneMenu id="meals" value="#{trainingController.selectedFeedback.meals}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Toilets:" for="toilets" />
-                                        <p:inputText id="toilets" value="#{trainingController.selectedFeedback.toilets}" title="Toilets" />
+                                        <p:selectOneMenu id="toilets" value="#{trainingController.selectedFeedback.toilets}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer1:" for="trainer1" />
                                         <p:autoComplete id="trainer1" value="#{trainingController.selectedFeedback.trainer1}"
                                                         completeMethod="#{personController.completePersons}"
@@ -392,17 +419,46 @@
                                         </p:autoComplete>
 
                                         <p:outputLabel value="Trainer1Presentation:" for="trainer1Presentation" />
-                                        <p:inputText id="trainer1Presentation" value="#{trainingController.selectedFeedback.trainer1Presentation}" title="Trainer1Presentation" />
+                                        <p:selectOneMenu id="trainer1Presentation" value="#{trainingController.selectedFeedback.trainer1Presentation}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Trainer1TimeManagement:" for="trainer1TimeManagement" />
-                                        <p:inputText id="trainer1TimeManagement" value="#{trainingController.selectedFeedback.trainer1TimeManagement}" title="Trainer1TimeManagement" />
+                                        <p:selectOneMenu id="trainer1TimeManagement" value="#{trainingController.selectedFeedback.trainer1TimeManagement}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer1SubjectAdequacy:" for="trainer1SubjectAdequacy" />
-                                        <p:inputText id="trainer1SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer1SubjectAdequacy}" title="Trainer1SubjectAdequacy" />
+                                        <p:selectOneMenu id="trainer1SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer1SubjectAdequacy}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer1relavanceToTopic:" for="trainer1relavanceToTopic" />
-                                        <p:inputText id="trainer1relavanceToTopic" value="#{trainingController.selectedFeedback.trainer1relavanceToTopic}" title="Trainer1relavanceToTopic" />
+                                        <p:selectOneMenu id="trainer1relavanceToTopic" value="#{trainingController.selectedFeedback.trainer1relavanceToTopic}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer1Practicles:" for="trainer1Practicles" />
-                                        <p:inputText id="trainer1Practicles" value="#{trainingController.selectedFeedback.trainer1Practicles}" title="Trainer1Practicles" />
+                                        <p:selectOneMenu id="trainer1Practicles" value="#{trainingController.selectedFeedback.trainer1Practicles}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer1Lecturing:" for="trainer1Lecturing" />
-                                        <p:inputText id="trainer1Lecturing" value="#{trainingController.selectedFeedback.trainer1Lecturing}" title="Trainer1Lecturing" />
+                                        <p:selectOneMenu id="trainer1Lecturing" value="#{trainingController.selectedFeedback.trainer1Lecturing}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Trainer2:" for="trainer2" />
                                         <p:autoComplete id="trainer2" value="#{trainingController.selectedFeedback.trainer2}"
                                                         completeMethod="#{personController.completePersons}"
@@ -412,17 +468,48 @@
                                         </p:autoComplete>
 
                                         <p:outputLabel value="Trainer2Presentation:" for="trainer2Presentation" />
-                                        <p:inputText id="trainer2Presentation" value="#{trainingController.selectedFeedback.trainer2Presentation}" title="Trainer2Presentation" />
+                                        <p:selectOneMenu id="trainer2Presentation" value="#{trainingController.selectedFeedback.trainer2Presentation}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer2TimeManagement:" for="trainer2TimeManagement" />
-                                        <p:inputText id="trainer2TimeManagement" value="#{trainingController.selectedFeedback.trainer2TimeManagement}" title="Trainer2TimeManagement" />
+                                        <p:selectOneMenu id="trainer2TimeManagement" value="#{trainingController.selectedFeedback.trainer2TimeManagement}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
+
+
                                         <p:outputLabel value="Trainer2SubjectAdequacy:" for="trainer2SubjectAdequacy" />
-                                        <p:inputText id="trainer2SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer2SubjectAdequacy}" title="Trainer2SubjectAdequacy" />
+                                        <p:selectOneMenu id="trainer2SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer2SubjectAdequacy}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer2relavanceToTopic:" for="trainer2relavanceToTopic" />
-                                        <p:inputText id="trainer2relavanceToTopic" value="#{trainingController.selectedFeedback.trainer2relavanceToTopic}" title="Trainer2relavanceToTopic" />
+                                        <p:selectOneMenu id="trainer2relavanceToTopic" value="#{trainingController.selectedFeedback.trainer2relavanceToTopic}">
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer2Practicles:" for="trainer2Practicles" />
-                                        <p:inputText id="trainer2Practicles" value="#{trainingController.selectedFeedback.trainer2Practicles}" title="Trainer2Practicles" />
+                                        <p:selectOneMenu id="trainer2Practicles" value="#{trainingController.selectedFeedback.trainer2Practicles}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer2Lecturing:" for="trainer2Lecturing" />
-                                        <p:inputText id="trainer2Lecturing" value="#{trainingController.selectedFeedback.trainer2Lecturing}" title="Trainer2Lecturing" />
+                                        <p:selectOneMenu id="trainer2Lecturing" value="#{trainingController.selectedFeedback.trainer2Lecturing}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>                                        
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Trainer3:" for="trainer3" />
                                         <p:autoComplete id="trainer3" value="#{trainingController.selectedFeedback.trainer3}"
                                                         completeMethod="#{personController.completePersons}"
@@ -432,17 +519,43 @@
                                         </p:autoComplete>
 
                                         <p:outputLabel value="Trainer3Presentation:" for="trainer3Presentation" />
-                                        <p:inputText id="trainer3Presentation" value="#{trainingController.selectedFeedback.trainer3Presentation}" title="Trainer3Presentation" />
+                                        <p:selectOneMenu id="trainer3Presentation" value="#{trainingController.selectedFeedback.trainer3Presentation}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer3TimeManagement:" for="trainer3TimeManagement" />
-                                        <p:inputText id="trainer3TimeManagement" value="#{trainingController.selectedFeedback.trainer3TimeManagement}" title="Trainer3TimeManagement" />
+                                        <p:selectOneMenu id="trainer3TimeManagement" value="#{trainingController.selectedFeedback.trainer3TimeManagement}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer3SubjectAdequacy:" for="trainer3SubjectAdequacy" />
-                                        <p:inputText id="trainer3SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer3SubjectAdequacy}" title="Trainer3SubjectAdequacy" />
+                                        <p:selectOneMenu id="trainer3SubjectAdequacy" value="#{trainingController.selectedFeedback.trainer3SubjectAdequacy}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Trainer3relavanceToTopic:" for="trainer3relavanceToTopic" />
-                                        <p:inputText id="trainer3relavanceToTopic" value="#{trainingController.selectedFeedback.trainer3relavanceToTopic}" title="Trainer3relavanceToTopic" />
+                                        <p:selectOneMenu id="trainer3relavanceToTopic" value="#{trainingController.selectedFeedback.trainer3relavanceToTopic}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
+
                                         <p:outputLabel value="Trainer3Practicles:" for="trainer3Practicles" />
-                                        <p:inputText id="trainer3Practicles" value="#{trainingController.selectedFeedback.trainer3Practicles}" title="Trainer3Practicles" />
+                                        <p:selectOneMenu id="trainer3Practicles" value="#{trainingController.selectedFeedback.trainer3Practicles}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Trainer3Lecturing:" for="trainer3Lecturing" />
-                                        <p:inputText id="trainer3Lecturing" value="#{trainingController.selectedFeedback.trainer3Lecturing}" title="Trainer3Lecturing" />
+                                        <p:selectOneMenu id="trainer3Lecturing" value="#{trainingController.selectedFeedback.trainer3Lecturing}" >
+                                            <f:selectItem itemLabel="Select" ></f:selectItem>
+                                            <f:selectItems value="#{enumController.feedbackCategorys}" ></f:selectItems>
+                                        </p:selectOneMenu>
+
                                         <p:outputLabel value="Comments:" for="comments" />
                                         <p:inputTextarea rows="4" cols="30" id="comments" value="#{trainingController.selectedFeedback.comments}" title="Comments" />
                                     </p:panelGrid>
