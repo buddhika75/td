@@ -36,6 +36,7 @@ import lk.gov.sp.healthdept.td.facades.PersonTrainingFacade;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
 import lk.gov.sp.healthdept.td.facades.TrainingFeedbackFacade;
 import org.apache.commons.beanutils.BeanUtils;
+import org.primefaces.model.chart.PieChartModel;
 
 @Named("trainingController")
 @SessionScoped
@@ -66,6 +67,7 @@ public class TrainingController implements Serializable {
     TrainingFeedback removingFeedback;
     List<TrainingFeedback> selectedFeedbacks;
     TrainingSession selectedTrainingSession;
+    private PieChartModel pieModel1;
 
     public void fillFeedabcks() {
         String j;
@@ -421,7 +423,47 @@ public class TrainingController implements Serializable {
         }
         return "/training/print_schedules";
     }
+    
+    public String createCompletePieChart() {
+        pieModel1 = new PieChartModel();
+         
+        pieModel1.set("Completed Trainings", 540);
+        pieModel1.set("Incomplete Trainings", 325);
+         
+        pieModel1.setTitle("Training Scheduled");
+        pieModel1.setLegendPosition("w");
+        return "";
+    }
 
+    public String searchAndPrintSchedulesIndex() {
+        int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
+        System.out.println("monthsInBetween = " + monthsInBetween);
+        selectedMonthlyTrainings = new ArrayList<MonthlyTrainings>();
+        for (int i = 0; i < (monthsInBetween + 1); i++) {
+            MonthlyTrainings mt = new MonthlyTrainings();
+            Calendar fc = Calendar.getInstance();
+            fc.setTime(from);
+            fc.add(Calendar.MONTH, i);
+
+            Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
+            System.out.println("fromDate = " + fromDate);
+            Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
+            System.out.println("toDate = " + toDate);
+            mt.setTrainings(searchSchedules(fromDate, toDate));
+            System.out.println("fc = " + fc);
+            System.out.println("mt = " + mt);
+
+            fc.setTime(fromDate);
+            fc.add(Calendar.DATE, 5);
+
+            System.out.println("fromDate = " + fromDate);
+
+            mt.setMonthDate(fromDate);
+            selectedMonthlyTrainings.add(mt);
+        }
+        return "/training/print_schedules_index";
+    }
+    
     public Department getDepartment() {
         return department;
     }

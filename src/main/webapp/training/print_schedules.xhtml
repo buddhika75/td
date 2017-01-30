@@ -15,7 +15,7 @@
 
 
             <p:commandButton onclick="window.print();" value="Print" styleClass="no-print" ></p:commandButton>
-
+            <br/><br/>
             <h1>Training Schedule</h1>
             <h2>
                 <p:outputLabel rendered="#{trainingController.department ne null}" value="#{trainingController.department.institute.name} - " ></p:outputLabel>
@@ -33,46 +33,6 @@
                 </p:outputLabel>
             </h2>
 
-
-            <table  style="width: 98%; border: 1px solid;padding: 5px; margin: 1px;" class="pure-table-bordered pure-table-striped" >
-                <thead >
-                    <tr >
-                        <th colspan="2">
-                            <p:outputLabel value="Training Schedule Index" ></p:outputLabel>
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody >
-                    <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
-                        <tr>
-                            <td colspan="3">
-                                <p:outputLabel value="#{mts.monthDate}" >
-                                    <f:convertDateTime pattern="MMMM" ></f:convertDateTime>
-                                </p:outputLabel>
-                            </td>
-                        </tr>
-
-                        <h:panelGroup rendered="#{not empty mts.trainings}">
-                            <ui:repeat value="#{mts.trainings}" var="t"  >
-                                <tr >
-                                    <td>
-                                        
-                                    </td>
-                                    <td style="width: 80%;">
-                                        <p:outputLabel value="#{t.name}" ></p:outputLabel>
-                                    </td>
-                                    <td  style="width: 10%;">
-                                        
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </h:panelGroup>
-                    </ui:repeat>
-
-                </tbody>
-            </table>
-
             <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
                 <h3>
                     <p:outputLabel value="Month : " ></p:outputLabel>
@@ -89,8 +49,29 @@
                 <h:panelGroup rendered="#{not empty mts.trainings}">
 
                     <ui:repeat value="#{mts.trainings}" var="t"  >
-                        <table style="width: 98%; border: 1px solid;padding: 5px; margin: 1px;" class="pure-table-bordered pure-table-striped" >
+                        
+                        
+                        <table >
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <table style="margin-left: 2cm!important; margin: 1cm; width: 90%; border: 1px solid;padding: 5px; " class="pure-table pure-table-bordered pure-table-striped" >
+                            
                             <thead >
+                                
                                 <tr>
                                     <th colspan="2">
                                         <p:outputLabel value="#{t.name}" ></p:outputLabel>
@@ -204,6 +185,8 @@
                             </tbody>
                         </table>
                         <br/>
+
+                        <div style="page-break-after:always"></div>
                     </ui:repeat>
 
                 </h:panelGroup>

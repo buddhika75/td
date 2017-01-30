@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Training Schedules</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="tables.css" ></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="td.css" ></h:outputStylesheet>
+        <h:form >
+
+
+            <p:commandButton onclick="window.print();" value="Print" styleClass="no-print" ></p:commandButton>
+
+            <h1>Training Schedule</h1>
+            <h2>
+                <p:outputLabel rendered="#{trainingController.department ne null}" value="#{trainingController.department.institute.name} - " ></p:outputLabel>
+
+                <p:outputLabel rendered="#{trainingController.department ne null}" value=" #{trainingController.department.name}" ></p:outputLabel>
+            </h2>
+            <h2>
+                <p:outputLabel value="From : " ></p:outputLabel>
+                <p:outputLabel value="#{trainingController.from}" >
+                    <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                </p:outputLabel>
+                <p:outputLabel value=" To : " ></p:outputLabel>
+                <p:outputLabel value="#{trainingController.to}" >
+                    <f:convertDateTime pattern="dd MMMM yyyy" ></f:convertDateTime>
+                </p:outputLabel>
+            </h2>
+
+
+            <table  style="width: 98%; border: 1px solid;padding: 5px; margin: 1px;" class="pure-table-bordered pure-table-striped" >
+                <thead >
+                    <tr >
+                        <th colspan="2">
+                            <p:outputLabel value="Training Schedule Index" ></p:outputLabel>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody >
+                    <ui:repeat value="#{trainingController.selectedMonthlyTrainings}" var="mts" >
+                        <tr>
+                            <td colspan="3">
+                                <p:outputLabel value="#{mts.monthDate}" >
+                                    <f:convertDateTime pattern="MMMM" ></f:convertDateTime>
+                                </p:outputLabel>
+                            </td>
+                        </tr>
+
+                        <h:panelGroup rendered="#{not empty mts.trainings}">
+                            <ui:repeat value="#{mts.trainings}" var="t"  >
+                                <tr >
+                                    <td>
+                                        
+                                    </td>
+                                    <td style="width: 80%;">
+                                        <p:outputLabel value="#{t.name}" ></p:outputLabel>
+                                    </td>
+                                    <td  style="width: 10%;">
+                                        
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </ui:repeat>
+
+                </tbody>
+            </table>
+
+          
+
+        </h:form>
+    </h:body>
+</html>
+

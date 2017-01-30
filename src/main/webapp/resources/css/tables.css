@@ -4,6 +4,11 @@ Copyright 2013 Yahoo!
 Licensed under the BSD License.
 https://github.com/yahoo/pure/blob/master/LICENSE.md
 */
+
+.pure-table table { page-break-inside:auto }
+.pure-table tr    { page-break-inside:avoid; page-break-after:auto }
+
+
 .pure-table {
     /* Remove spacing between table cells (from Normalize.css) */
     border-collapse: collapse;
