@@ -5,6 +5,8 @@ import lk.gov.sp.healthdept.td.controllers.util.JsfUtil.PersistAction;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.persistence.TemporalType;
 import lk.gov.sp.healthdept.td.entity.Department;
 import lk.gov.sp.healthdept.td.entity.MonthlyTrainings;
 import lk.gov.sp.healthdept.td.entity.Person;
@@ -36,6 +39,8 @@ import lk.gov.sp.healthdept.td.facades.PersonTrainingFacade;
 import lk.gov.sp.healthdept.td.facades.TrainingFacade;
 import lk.gov.sp.healthdept.td.facades.TrainingFeedbackFacade;
 import org.apache.commons.beanutils.BeanUtils;
+import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
 @Named("trainingController")
@@ -68,6 +73,10 @@ public class TrainingController implements Serializable {
     List<TrainingFeedback> selectedFeedbacks;
     TrainingSession selectedTrainingSession;
     private PieChartModel pieModel1;
+    private BarChartModel barModel;
+
+    Long completeCount;
+    Long incompleteCount;
 
     public void fillFeedabcks() {
         String j;
@@ -118,7 +127,7 @@ public class TrainingController implements Serializable {
         fillFeedabcks();
     }
 
-    public void addFeedback(){
+    public void addFeedback() {
         if (selectedCompleted == null) {
             JsfUtil.addErrorMessage("Please select a training");
             return;
@@ -127,7 +136,7 @@ public class TrainingController implements Serializable {
         selectedFeedback.setTraining(selectedCompleted);
         getTrainingFeedbackFacade().create(selectedFeedback);
     }
-    
+
     public void addPresentPerson() {
         if (selectedCompleted == null) {
             JsfUtil.addErrorMessage("Please select a training");
@@ -296,11 +305,11 @@ public class TrainingController implements Serializable {
         }
         System.out.println("selectedScheduled = " + selectedScheduled);
         System.out.println("selectedScheduled.getCompleted() = " + selectedScheduled.getCompleted());
-        if(selectedScheduled.getCompleted()==null){
+        if (selectedScheduled.getCompleted() == null) {
             selectedScheduled.setCompleted(Boolean.FALSE);
         }
-        
-        if ( selectedScheduled.getCompleted() == true) {
+
+        if (selectedScheduled.getCompleted() == true) {
             JsfUtil.addErrorMessage("Already Completed");
         }
 
@@ -423,15 +432,103 @@ public class TrainingController implements Serializable {
         }
         return "/training/print_schedules";
     }
-    
+
+    public long calculateTrainingCount(Date fromDate, Date toDate, boolean completed) {
+        String j = "Select count(t) from Training t "
+                + " where t.startDate between :fd and :td "
+                + " and t.trainingCategory= :tc "
+                + " and t.completed=:c";
+        Map m = new HashMap();
+        m.put("fd", fromDate);
+        m.put("td", toDate);
+        m.put("tc", TrainingCategory.Scheduled_Training);
+        m.put("c", completed);
+        if (department != null) {
+            j += " and t.department=:dept";
+            m.put("dept", department);
+        }
+        return getFacade().findLongByJpql(j, m, TemporalType.DATE);
+
+    }
+
+    public String createCompleteBarChart() {
+        barModel = new BarChartModel();
+        int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
+        
+
+        ChartSeries completed = new ChartSeries();
+        completed.setLabel("Completed");
+        for (int i = 0; i < (monthsInBetween + 1); i++) {
+            MonthlyTrainings mt = new MonthlyTrainings();
+            Calendar fc = Calendar.getInstance();
+            fc.setTime(from);
+            fc.add(Calendar.MONTH, i);
+
+            Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
+            Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
+            
+            Long count = calculateTrainingCount(fromDate, toDate, true);
+            System.out.println("count = " + count);
+            
+            fc.setTime(fromDate);
+            fc.add(Calendar.DATE, 5);
+            mt.setMonthDate(fromDate);
+
+            DateFormat df = new SimpleDateFormat("MMMM");
+            String reportDate = df.format(fc.getTime());
+            System.out.println("reportDate = " + reportDate);
+            
+            completed.set(reportDate, count);
+            
+        }
+
+
+        ChartSeries notcompleted = new ChartSeries();
+        notcompleted.setLabel("Not Completed");
+        for (int i = 0; i < (monthsInBetween + 1); i++) {
+            MonthlyTrainings mt = new MonthlyTrainings();
+            Calendar fc = Calendar.getInstance();
+            fc.setTime(from);
+            fc.add(Calendar.MONTH, i);
+
+            Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
+            Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
+            
+            Long count = calculateTrainingCount(fromDate, toDate, false);
+            System.out.println("count = " + count);
+            
+            fc.setTime(fromDate);
+            fc.add(Calendar.DATE, 5);
+            mt.setMonthDate(fromDate);
+
+            DateFormat df = new SimpleDateFormat("MMMM");
+            String reportDate = df.format(fc.getTime());
+            System.out.println("reportDate = " + reportDate);
+            
+            notcompleted.set(reportDate, count);
+            
+        }
+
+        barModel.addSeries(completed);
+        barModel.addSeries(notcompleted);
+        barModel.setShowPointLabels(true);
+        barModel.setShowPointLabels(true);
+        return "";
+    }
+
     public String createCompletePieChart() {
         pieModel1 = new PieChartModel();
-         
-        pieModel1.set("Completed Trainings", 540);
-        pieModel1.set("Incomplete Trainings", 325);
-         
-        pieModel1.setTitle("Training Scheduled");
+        String j;
+
+        completeCount = calculateTrainingCount(from, to, true);
+        incompleteCount = calculateTrainingCount(from, to, false);
+
+        pieModel1.set("Completed Trainings", completeCount);
+        pieModel1.set("Incomplete Trainings", incompleteCount);
+
+        pieModel1.setTitle("Training Schedules");
         pieModel1.setLegendPosition("w");
+        pieModel1.setShowDataLabels(true);
         return "";
     }
 
@@ -463,7 +560,7 @@ public class TrainingController implements Serializable {
         }
         return "/training/print_schedules_index";
     }
-    
+
     public Department getDepartment() {
         return department;
     }
@@ -610,6 +707,38 @@ public class TrainingController implements Serializable {
 
     public List<Training> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public PieChartModel getPieModel1() {
+        return pieModel1;
+    }
+
+    public void setPieModel1(PieChartModel pieModel1) {
+        this.pieModel1 = pieModel1;
+    }
+
+    public Long getCompleteCount() {
+        return completeCount;
+    }
+
+    public void setCompleteCount(Long completeCount) {
+        this.completeCount = completeCount;
+    }
+
+    public Long getIncompleteCount() {
+        return incompleteCount;
+    }
+
+    public void setIncompleteCount(Long incompleteCount) {
+        this.incompleteCount = incompleteCount;
+    }
+
+    public BarChartModel getBarModel() {
+        return barModel;
+    }
+
+    public void setBarModel(BarChartModel barModel) {
+        this.barModel = barModel;
     }
 
     @FacesConverter(forClass = Training.class)

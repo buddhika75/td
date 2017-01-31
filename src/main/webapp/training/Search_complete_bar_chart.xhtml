@@ -33,44 +33,15 @@
                     <p:outputLabel value="To" ></p:outputLabel>
                     <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" timeZone="Asia/Colombo" navigator="true"></p:calendar>
 
-                    <p:commandButton value="Calculate Completed Percentage" action="#{trainingController.createCompletePieChart()}" ajax="false" ></p:commandButton>
+                    <p:commandButton value="Display Monthly Performance" action="#{trainingController.createCompleteBarChart()}" ajax="false" ></p:commandButton>
 
                 </p:panelGrid>
 
-                <p:panelGrid columns="2" >
+             
+                    <p:chart type="bar" model="#{trainingController.barModel}" style="height:400px" rendered="#{trainingController.barModel ne null}" />
 
-
-                    <p:chart type="pie" model="#{trainingController.pieModel1}" style="width:400px;height:300px" rendered="#{trainingController.pieModel1 ne null}" />
-
-                    <h:panelGroup >
-
-                        <table class="pure-table-bordered pure-table-horizontal" style="border: 1px solid; margin: 10px; padding: 5px;" >
-                            <thead >
-                                <tr>
-                                    <th>
-                                        <p:outputLabel value="Completed" ></p:outputLabel>
-                                    </th>
-                                    <th>
-                                        <p:outputLabel value="Not Completed" ></p:outputLabel>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <p:outputLabel value="#{trainingController.completeCount}" ></p:outputLabel>
-                                    </td>
-                                    <td>
-                                        <p:outputLabel value="#{trainingController.incompleteCount}" ></p:outputLabel>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </h:panelGroup>
-
-                </p:panelGrid>
-
+                  
+             
 
 
             </h:form>

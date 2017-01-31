@@ -173,7 +173,7 @@
                                 <f:setPropertyActionListener target="#{trainingController.selectedScheduled}" value="#{item}" ></f:setPropertyActionListener>
                             </p:commandButton>
                             <p:commandButton rendered="#{item.completed}" ajax="false" value="View Completed" action="#{trainingController.editCompletedTraining()}" >
-                                <f:setPropertyActionListener target="#{trainingController.selectedCompleted}" value="#{item}" ></f:setPropertyActionListener>
+                                <f:setPropertyActionListener target="#{trainingController.selectedCompleted}" value="#{item.completedTraining}" ></f:setPropertyActionListener>
                             </p:commandButton>
                             
                         </p:column>
