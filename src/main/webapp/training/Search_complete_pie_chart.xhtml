@@ -33,7 +33,8 @@
                     <p:outputLabel value="To" ></p:outputLabel>
                     <p:calendar value="#{trainingController.to}" pattern="yyyy MMMM dd" timeZone="Asia/Colombo" navigator="true"></p:calendar>
 
-                    <p:commandButton value="Calculate Completed Percentage" action="#{trainingController.createCompletePieChart()}" ajax="false" ></p:commandButton>
+                    <p:commandButton value="Calculate Completed Percentage" 
+                                     action="#{trainingController.createCompletePieChart()}" ajax="false" ></p:commandButton>
 
                 </p:panelGrid>
 

@@ -434,15 +434,30 @@ public class TrainingController implements Serializable {
     }
 
     public long calculateTrainingCount(Date fromDate, Date toDate, boolean completed) {
-        String j = "Select count(t) from Training t "
-                + " where t.startDate between :fd and :td "
-                + " and t.trainingCategory= :tc "
-                + " and t.completed=:c";
-        Map m = new HashMap();
-        m.put("fd", fromDate);
-        m.put("td", toDate);
-        m.put("tc", TrainingCategory.Scheduled_Training);
-        m.put("c", completed);
+        String j;
+        Map m;
+        if (completed) {
+            j = "Select count(t) from Training t "
+                    + " where t.startDate between :fd and :td "
+                    + " and t.trainingCategory= :tc "
+                    + " and t.completed=:c";
+            m = new HashMap();
+            m.put("fd", fromDate);
+            m.put("td", toDate);
+            m.put("tc", TrainingCategory.Scheduled_Training);
+            m.put("c", completed);
+        } else {
+            j = "Select count(t) from Training t "
+                    + " where t.startDate between :fd and :td "
+                    + " and t.trainingCategory= :tc "
+                    + " and (t.completed=:c or t.completed is null)";
+            m = new HashMap();
+            m.put("fd", fromDate);
+            m.put("td", toDate);
+            m.put("tc", TrainingCategory.Scheduled_Training);
+            m.put("c", completed);
+
+        }
         if (department != null) {
             j += " and t.department=:dept";
             m.put("dept", department);
@@ -454,7 +469,6 @@ public class TrainingController implements Serializable {
     public String createCompleteBarChart() {
         barModel = new BarChartModel();
         int monthsInBetween = JsfUtil.monthsInBetweenTwoDays(from, to);
-        
 
         ChartSeries completed = new ChartSeries();
         completed.setLabel("Completed");
@@ -466,10 +480,10 @@ public class TrainingController implements Serializable {
 
             Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
             Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
-            
+
             Long count = calculateTrainingCount(fromDate, toDate, true);
             System.out.println("count = " + count);
-            
+
             fc.setTime(fromDate);
             fc.add(Calendar.DATE, 5);
             mt.setMonthDate(fromDate);
@@ -477,11 +491,10 @@ public class TrainingController implements Serializable {
             DateFormat df = new SimpleDateFormat("MMMM");
             String reportDate = df.format(fc.getTime());
             System.out.println("reportDate = " + reportDate);
-            
-            completed.set(reportDate, count);
-            
-        }
 
+            completed.set(reportDate, count);
+
+        }
 
         ChartSeries notcompleted = new ChartSeries();
         notcompleted.setLabel("Not Completed");
@@ -493,10 +506,10 @@ public class TrainingController implements Serializable {
 
             Date fromDate = JsfUtil.firstDayOfMonth(fc.getTime());
             Date toDate = JsfUtil.lastDayOfMonth(fc.getTime());
-            
+
             Long count = calculateTrainingCount(fromDate, toDate, false);
             System.out.println("count = " + count);
-            
+
             fc.setTime(fromDate);
             fc.add(Calendar.DATE, 5);
             mt.setMonthDate(fromDate);
@@ -504,9 +517,9 @@ public class TrainingController implements Serializable {
             DateFormat df = new SimpleDateFormat("MMMM");
             String reportDate = df.format(fc.getTime());
             System.out.println("reportDate = " + reportDate);
-            
+
             notcompleted.set(reportDate, count);
-            
+
         }
 
         barModel.addSeries(completed);
